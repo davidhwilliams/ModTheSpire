@@ -114,14 +114,16 @@ public class ModPanel extends JPanel
         if (isWorkshopMod()) {
             StatusIconButton workshop = new StatusIconButton(ModSelectWindow.ICON_WORKSHOP, ModSelectWindow.ICON_WORKSHOP_HOVER);
             workshop.addActionListener(event -> {
-                try {
-                    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-                    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-                        desktop.browse(new URI("steam://url/CommunityFilePage/" + info.workshopInfo.getID()));
+                new Thread(() -> {
+                    try {
+                        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+                        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+                            desktop.browse(new URI("steam://url/CommunityFilePage/" + info.workshopInfo.getID()));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                }).start();
             });
             icons.add(workshop);
         }
