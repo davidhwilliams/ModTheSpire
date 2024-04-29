@@ -355,6 +355,7 @@ public class ModSelectWindow extends JFrame
                 }
             }
         };
+        playBtn.setMnemonic(KeyEvent.VK_P);
         playBtn.updateUI(); // forces arrow color update
         setPlayButtonLabel();
         playBtnPopup = new JPopupMenu();
@@ -649,6 +650,7 @@ public class ModSelectWindow extends JFrame
                 ModTheSpire.OUT_JAR ? JAR_DUMP_OPTION :
                     PLAY_OPTION
         );
+        playBtn.setDisplayedMnemonicIndex(playBtn.getText().indexOf('P'));
     }
 
     void setPlayButtonOptions(boolean enabled)
