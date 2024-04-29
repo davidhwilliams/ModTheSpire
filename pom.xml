@@ -422,6 +422,7 @@
                                         <Premain-Class>com.evacipated.cardcrawl.modthespire.agent.MTSAgent</Premain-Class>
                                         <Agent-Class>com.evacipated.cardcrawl.modthespire.agent.MTSAgent</Agent-Class>
                                         <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                                        <SplashScreen-Image>assets/splash.gif</SplashScreen-Image>
                                     </manifestEntries>
                                 </transformer>
                                 <transformer

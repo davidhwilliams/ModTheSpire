@@ -31,6 +31,7 @@
 * Add ability to edit profile names
 * Add requiredModId to SpireEnum
 * Fix SpirePatch requiredModId not accounting for sideloading
+* Add splash screen while ModTheSpire is loading
 
 #### v3.30.3 ####
 * Fix package information being lost for patched classes (Alchyr)
