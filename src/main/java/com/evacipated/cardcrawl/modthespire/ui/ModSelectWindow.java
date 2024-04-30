@@ -17,7 +17,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -105,7 +104,7 @@ public class ModSelectWindow extends JFrame
     
     public ModSelectWindow(ModInfo[] modInfos, boolean skipLauncher)
     {
-        System.setProperty("flatlaf.useWindowDecorations", "true");
+        FlatLaf.registerCustomDefaultsSource("mtsThemes");
         if (ModTheSpire.MTS_CONFIG.has("uiTheme")) {
             String theme = ModTheSpire.MTS_CONFIG.getString("uiTheme");
             setTheme(theme);
@@ -121,15 +120,6 @@ public class ModSelectWindow extends JFrame
         }
         if (ModTheSpire.MTS_CONFIG.has("modder")) {
             MODDER_MODE = ModTheSpire.MTS_CONFIG.getBool("modder");
-        }
-
-        Object f = UIManager.get("TitledBorder.font");
-        if (f instanceof FontUIResource) {
-            UIManager.put("TitledBorder.font", new FontUIResource(((FontUIResource) f).deriveFont(Font.BOLD)));
-        }
-        f = UIManager.get("Label.font");
-        if (f instanceof FontUIResource) {
-            UIManager.put("TextArea.font", new FontUIResource(((FontUIResource) f).deriveFont(Font.PLAIN)));
         }
 
         setIconImage(APP_ICON);
