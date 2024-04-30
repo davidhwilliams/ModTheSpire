@@ -24,10 +24,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class ModSelectWindow extends JFrame
 {
@@ -293,7 +293,22 @@ public class ModSelectWindow extends JFrame
         // Open Folder submenu
         JMenu openMenu = new JMenu("Open Folder");
         openMenu.setMnemonic(KeyEvent.VK_O);
-        JMenuItem item = new JMenuItem("Local Mods", ICON_FOLDER);
+        JMenuItem item = new JMenuItem("Workshop Mods", ICON_WORKSHOP);
+        item.setMnemonic(KeyEvent.VK_W);
+        item.addActionListener((ActionEvent event) -> {
+            Optional<String> installPath = Arrays.stream(info)
+                .filter(x -> x.workshopInfo != null)
+                .map(x -> x.workshopInfo.getInstallPath())
+                .findFirst();
+            if (installPath.isPresent()) {
+                Path path = Paths.get(installPath.get());
+                openFolder(path.getParent().toString(), false);
+            }
+        });
+        if (Arrays.stream(info).anyMatch(x -> x.workshopInfo != null)) {
+            openMenu.add(item);
+        }
+        item = new JMenuItem("Local Mods", ICON_FOLDER);
         item.addActionListener((ActionEvent event) -> {
             openFolder(ModTheSpire.MOD_DIR, true);
         });
