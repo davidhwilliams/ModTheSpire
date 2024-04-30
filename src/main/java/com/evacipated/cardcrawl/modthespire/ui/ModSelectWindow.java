@@ -653,7 +653,7 @@ public class ModSelectWindow extends JFrame
         playBtn.setDisplayedMnemonicIndex(playBtn.getText().indexOf('P'));
     }
 
-    void setPlayButtonOptions(boolean enabled)
+    private void setPlayButtonOptions(boolean enabled)
     {
         if (enabled) {
             playBtn.setPopupMenu(playBtnPopup);
@@ -661,6 +661,12 @@ public class ModSelectWindow extends JFrame
             playBtn.setPopupMenu(null);
         }
         playBtn.repaint();
+    }
+
+    void updateModderMode(boolean enabled)
+    {
+        setPlayButtonOptions(enabled);
+        modID.setVisible(enabled);
     }
 
     private JPanel makeInfoPanel()
@@ -694,6 +700,7 @@ public class ModSelectWindow extends JFrame
 
         modID = makeInfoLabelField("ID", " ");
         infoPanel.add(modID, c);
+        modID.setVisible(MODDER_MODE);
         ++c.gridy;
 
         modVersion = makeInfoLabelField("Version", " ");

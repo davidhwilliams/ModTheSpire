@@ -10,6 +10,7 @@
 * Fix crash from compile order not considering interfaces
 * Allow dependencies to specify required version number
 * Add mod ID to UI
+  * Only shown in moddder mode
 * Add dependencies to UI
 * Rearrange info in the UI
 * Fix status message being wiped when rearranging mod order
@@ -24,6 +25,7 @@
 * Add theme setting
 * Make mod list clip long mod names instead of scrolling horizontally
 * Add UI to switch between play, out-jar, and package
+  * Only shown in moddder mode
 * Make mod description box scrollable for long text
 * Make Steam icon on mod open the mod's workshop page when clicked
 * Display multiple icons for mods that have local and workshop versions

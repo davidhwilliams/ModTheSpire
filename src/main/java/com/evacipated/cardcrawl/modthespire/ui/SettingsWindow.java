@@ -58,7 +58,7 @@ public class SettingsWindow extends JDialog
             SettingsWindow::getModderMode,
             v -> {
                 setModderMode(v);
-                ((ModSelectWindow) owner).setPlayButtonOptions(v);
+                ((ModSelectWindow) owner).updateModderMode(v);
             }
         );
         checkModderMode.addItemListener(e -> {
