@@ -322,6 +322,16 @@ public class ModSelectWindow extends JFrame
             settingsWindow.setVisible(true);
         });
         menu.add(item);
+        menu.addSeparator();
+        // About
+        item = new JMenuItem("About");
+        item.addActionListener((ActionEvent event) -> {
+            JDialog aboutWindow = new AboutWindow(ModSelectWindow.this);
+            aboutWindow.pack();
+            aboutWindow.setLocationRelativeTo(ModSelectWindow.this);
+            aboutWindow.setVisible(true);
+        });
+        menu.add(item);
         menuBar.add(menu);
 
         return menuBar;

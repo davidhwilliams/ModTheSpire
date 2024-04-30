@@ -13,6 +13,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.buildTime>${maven.build.timestamp}</project.buildTime>
+        <maven.build.timestamp.format>MMM dd yyyy HH:mm:ss</maven.build.timestamp.format>
 
         <kotlin.version>1.4.10</kotlin.version>
         <gdx.version>1.9.5</gdx.version>
@@ -236,14 +238,14 @@
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
                 <excludes>
-                    <exclude>META-INF/version.prop</exclude>
+                    <exclude>mtsAbout.html</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>META-INF/version.prop</include>
+                    <include>mtsAbout.html</include>
                 </includes>
             </resource>
         </resources>
@@ -279,6 +281,19 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -423,6 +438,7 @@
                                         <Agent-Class>com.evacipated.cardcrawl.modthespire.agent.MTSAgent</Agent-Class>
                                         <Can-Retransform-Classes>true</Can-Retransform-Classes>
                                         <SplashScreen-Image>assets/splash.gif</SplashScreen-Image>
+                                        <Build-Time>${maven.build.timestamp}</Build-Time>
                                     </manifestEntries>
                                 </transformer>
                                 <transformer
