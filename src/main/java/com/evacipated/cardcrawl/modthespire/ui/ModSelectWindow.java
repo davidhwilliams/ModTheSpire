@@ -309,6 +309,7 @@ public class ModSelectWindow extends JFrame
             openMenu.add(item);
         }
         item = new JMenuItem("Local Mods", ICON_FOLDER);
+        item.setMnemonic(KeyEvent.VK_M);
         item.addActionListener((ActionEvent event) -> {
             openFolder(ModTheSpire.MOD_DIR, true);
         });
@@ -332,6 +333,7 @@ public class ModSelectWindow extends JFrame
 
         // Settings
         item = new JMenuItem("Settings");
+        item.setMnemonic(KeyEvent.VK_S);
         item.addActionListener((ActionEvent event) -> {
             JDialog settingsWindow = new SettingsWindow(ModSelectWindow.this);
             settingsWindow.pack();
