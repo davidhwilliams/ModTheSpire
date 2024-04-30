@@ -1,5 +1,7 @@
 package com.evacipated.cardcrawl.modthespire.ui;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
@@ -22,6 +24,7 @@ public class AboutWindow extends JDialog
     public AboutWindow(Frame owner)
     {
         super(owner, "About ModTheSpire", true);
+        rootPane.putClientProperty("JRootPane.titleBarShowIcon", false);
         setContentPane(contentPane);
         setResizable(false);
         getRootPane().setDefaultButton(buttonClose);
