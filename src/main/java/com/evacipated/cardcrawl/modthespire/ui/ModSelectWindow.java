@@ -292,12 +292,14 @@ public class ModSelectWindow extends JFrame
 
         // Open Folder submenu
         JMenu openMenu = new JMenu("Open Folder");
+        openMenu.setMnemonic(KeyEvent.VK_O);
         JMenuItem item = new JMenuItem("Local Mods", ICON_FOLDER);
         item.addActionListener((ActionEvent event) -> {
             openFolder(ModTheSpire.MOD_DIR, true);
         });
         openMenu.add(item);
         item = new JMenuItem("Logs", ICON_FILE);
+        item.setMnemonic(KeyEvent.VK_L);
         item.addActionListener((ActionEvent event) -> {
             openFolder("sendToDevs/", false);
         });
