@@ -27,6 +27,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Timer;
 import java.util.*;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
 public class ModTheSpire
 {
@@ -541,6 +543,25 @@ public class ModTheSpire
         }
     }
 
+    private static Manifest getManifest()
+    {
+        try {
+            Enumeration<URL> manifests = ModTheSpire.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
+            while (manifests.hasMoreElements()) {
+                Manifest manifest = new Manifest(manifests.nextElement().openStream());
+                Attributes main = manifest.getMainAttributes();
+                if (main == null) continue;
+                String title = main.getValue(Attributes.Name.IMPLEMENTATION_TITLE);
+                if (Objects.equals(title, "ModTheSpire")) {
+                    return manifest;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     static void loadMTSVersion()
     {
         loadMTSVersion(null);
@@ -548,19 +569,17 @@ public class ModTheSpire
 
     static void loadMTSVersion(String suffix)
     {
-        try {
-            Properties properties = new Properties();
-            properties.load(ModTheSpire.class.getResourceAsStream("/META-INF/version.prop"));
-            String version = properties.getProperty("version");
-            if (suffix != null) {
-                version += "+" + suffix;
-            }
-            MTS_VERSION = ModInfo.safeVersion(version);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Manifest manifest = getManifest();
+        if (manifest == null) {
             System.exit(-1);
+            return;
         }
 
+        String version = manifest.getMainAttributes().getValue(Attributes.Name.IMPLEMENTATION_VERSION);
+        if (suffix != null) {
+            version += "+" + suffix;
+        }
+        MTS_VERSION = ModInfo.safeVersion(version);
     }
 
     public static void setGameVersion(String versionString)
