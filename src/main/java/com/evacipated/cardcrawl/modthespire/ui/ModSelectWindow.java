@@ -257,6 +257,7 @@ public class ModSelectWindow extends JFrame
         setTitle("ModTheSpire " + ModTheSpire.MTS_VERSION);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(true);
+        setJMenuBar(makeMenuBar());
 
         rootPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -280,6 +281,65 @@ public class ModSelectWindow extends JFrame
             JRootPane rootPane = SwingUtilities.getRootPane(playBtn);
             rootPane.setDefaultButton(playBtn);
             EventQueue.invokeLater(playBtn::requestFocusInWindow);
+        }
+    }
+
+    private JMenuBar makeMenuBar()
+    {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("ModTheSpire");
+        menu.setMnemonic(KeyEvent.VK_M);
+
+        // Open Folder submenu
+        JMenu openMenu = new JMenu("Open Folder");
+        JMenuItem item = new JMenuItem("Local Mods", ICON_FOLDER);
+        item.addActionListener((ActionEvent event) -> {
+            openFolder(ModTheSpire.MOD_DIR, true);
+        });
+        openMenu.add(item);
+        item = new JMenuItem("Logs", ICON_FILE);
+        item.addActionListener((ActionEvent event) -> {
+            openFolder("sendToDevs/", false);
+        });
+        openMenu.add(item);
+        menu.add(openMenu);
+
+        // Check for Updates button
+        item = new JMenuItem("Check for Mod Updates", ICON_UPDATE);
+        final JMenuItem updateItem = item;
+        item.addActionListener(event -> {
+            startCheckingForModUpdates(updateItem);
+        });
+        // TODO rework updates and add menu item
+        //menu.add(item);
+
+        // Settings
+        item = new JMenuItem("Settings");
+        item.addActionListener((ActionEvent event) -> {
+            JDialog settingsWindow = new SettingsWindow(ModSelectWindow.this);
+            settingsWindow.pack();
+            settingsWindow.setLocationRelativeTo(ModSelectWindow.this);
+            settingsWindow.setVisible(true);
+        });
+        menu.add(item);
+        menuBar.add(menu);
+
+        return menuBar;
+    }
+    private static void openFolder(String path, boolean createIfNotExist)
+    {
+        try {
+            File file = new File(path);
+            if (!file.exists()) {
+                if (createIfNotExist) {
+                    file.mkdir();
+                } else {
+                    return;
+                }
+            }
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -444,52 +504,6 @@ public class ModSelectWindow extends JFrame
         }
         panel.add(playBtn, BorderLayout.SOUTH);
 
-        // Open logs directory
-        JButton openLogsBtn = new JButton(ICON_FILE);
-        openLogsBtn.setToolTipText("Open Logs Directory");
-        openLogsBtn.addActionListener((ActionEvent event) -> {
-            try {
-                File file = new File("sendToDevs/");
-                if (!file.exists()) {
-                    return;
-                }
-                Desktop.getDesktop().open(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        if (!new File("sendToDevs/").exists()) {
-            openLogsBtn.setEnabled(false);
-        }
-        // Open mod directory
-        JButton openFolderBtn = new JButton(ICON_FOLDER);
-        openFolderBtn.setToolTipText("Open Mods Directory");
-        openFolderBtn.addActionListener((ActionEvent event) -> {
-            try {
-                File file = new File(ModTheSpire.MOD_DIR);
-                if (!file.exists()) {
-                    file.mkdir();
-                }
-                Desktop.getDesktop().open(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        // Check for Updates button
-        JButton updatesBtn = new JButton(ICON_UPDATE);
-        updatesBtn.setToolTipText("Check for Mod Updates");
-        updatesBtn.addActionListener(event -> {
-            startCheckingForModUpdates(updatesBtn);
-        });
-        // Settings button
-        JButton settingsBtn = new JButton(ICON_SETTINGS);
-        settingsBtn.setToolTipText("Open Settings");
-        settingsBtn.addActionListener((ActionEvent event) -> {
-            JDialog settingsWindow = new SettingsWindow(ModSelectWindow.this);
-            settingsWindow.pack();
-            settingsWindow.setLocationRelativeTo(ModSelectWindow.this);
-            settingsWindow.setVisible(true);
-        });
         // Toggle all button
         JButton toggleAllBtn = new JButton(new FlatCheckBoxIcon()) {
             @Override
@@ -504,12 +518,6 @@ public class ModSelectWindow extends JFrame
             modList.toggleAllMods();
             repaint();
         });
-
-        JPanel btnPanel = new JPanel(new GridLayout(1, 0));
-        btnPanel.add(settingsBtn);
-        btnPanel.add(updatesBtn);
-        btnPanel.add(openFolderBtn);
-        btnPanel.add(openLogsBtn);
 
         JComboBox<String> profilesList = new JComboBox<>(ModList.getAllModListNames().toArray(new String[0]));
         JButton addProfile = new JButton("+");
@@ -635,7 +643,6 @@ public class ModSelectWindow extends JFrame
         });
 
         JPanel topPanel = new JPanel(new GridLayout(0, 1));
-        topPanel.add(btnPanel);
         topPanel.add(profilesPanel);
         topPanel.add(filter);
         panel.add(topPanel, BorderLayout.NORTH);
@@ -1021,7 +1028,7 @@ public class ModSelectWindow extends JFrame
         }).start();
     }
 
-    public void startCheckingForModUpdates(JButton updatesBtn)
+    public void startCheckingForModUpdates(AbstractButton updatesBtn)
     {
         updatesBtn.setIcon(ICON_LOAD);
 
