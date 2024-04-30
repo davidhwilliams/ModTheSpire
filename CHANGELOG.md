@@ -36,6 +36,7 @@
 * Add splash screen while ModTheSpire is loading
 * Add mnemonic shortcut for Play button
 * Add About dialog
+* Fix some mod info text being selectable
 
 #### v3.30.3 ####
 * Fix package information being lost for patched classes (Alchyr)

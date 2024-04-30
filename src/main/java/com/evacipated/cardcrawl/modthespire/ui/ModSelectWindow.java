@@ -800,6 +800,7 @@ public class ModSelectWindow extends JFrame
             BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         label.setEditable(false);
+        label.setFocusable(false);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         label.setLineWrap(true);
         label.setWrapStyleWord(true);
