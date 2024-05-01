@@ -495,6 +495,8 @@ public class ModSelectWindow extends JFrame
             showingLog = true;
             playBtn.setEnabled(false);
 
+            rootPane.putClientProperty("JRootPane.titleBarShowTitle", true);
+            setJMenuBar(null);
             this.getContentPane().removeAll();
 
             JTextArea textArea = new JTextArea();
