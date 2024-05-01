@@ -244,7 +244,7 @@ public class ModSelectWindow extends JFrame
 
     private void initUI(boolean skipLauncher)
     {
-        setTitle("ModTheSpire " + ModTheSpire.MTS_VERSION);
+        setTitle("ModTheSpire");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(true);
         setJMenuBar(makeMenuBar());

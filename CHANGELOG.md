@@ -37,6 +37,7 @@
 * Add mnemonic shortcut for Play button
 * Add About dialog
 * Fix some mod info text being selectable
+* Remove MTS version from window title
 
 #### v3.30.3 ####
 * Fix package information being lost for patched classes (Alchyr)
