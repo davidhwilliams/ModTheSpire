@@ -105,6 +105,7 @@ public class ModSelectWindow extends JFrame
     public ModSelectWindow(ModInfo[] modInfos, boolean skipLauncher)
     {
         FlatLaf.registerCustomDefaultsSource("mtsThemes");
+        rootPane.putClientProperty("JRootPane.titleBarShowTitle", false);
         if (ModTheSpire.MTS_CONFIG.has("uiTheme")) {
             String theme = ModTheSpire.MTS_CONFIG.getString("uiTheme");
             setTheme(theme);
