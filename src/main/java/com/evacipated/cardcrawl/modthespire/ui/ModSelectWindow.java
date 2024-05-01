@@ -2,6 +2,7 @@ package com.evacipated.cardcrawl.modthespire.ui;
 
 import com.alexandriasoftware.swing.JSplitButton;
 import com.evacipated.cardcrawl.modthespire.*;
+import com.evacipated.cardcrawl.modthespire.lib.ConfigUtils;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -305,7 +306,13 @@ public class ModSelectWindow extends JFrame
             openFolder(ModTheSpire.MOD_DIR, true);
         });
         openMenu.add(item);
-        item = new JMenuItem("Logs", ICON_FILE);
+        item = new JMenuItem("Config Files", ICON_SETTINGS);
+        item.setMnemonic(KeyEvent.VK_C);
+        item.addActionListener((ActionEvent event) -> {
+            openFolder(ConfigUtils.CONFIG_DIR, false);
+        });
+        openMenu.add(item);
+        item = new JMenuItem("Log Files", ICON_FILE);
         item.setMnemonic(KeyEvent.VK_L);
         item.addActionListener((ActionEvent event) -> {
             openFolder("sendToDevs/", false);
