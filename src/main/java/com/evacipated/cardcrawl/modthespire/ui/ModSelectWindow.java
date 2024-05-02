@@ -553,12 +553,6 @@ public class ModSelectWindow extends JFrame
                 setLocationRelativeTo(null);
             }
 
-            Thread tCfg = new Thread(() -> {
-                // Save new load order cfg
-                ModList.save(ModList.getDefaultList(), modList.getCheckedMods());
-            });
-            tCfg.start();
-
             Thread t = new Thread(() -> {
                 ModTheSpire.runMods(modList.getCheckedModIDs());
                 if (ModTheSpire.CLOSE_WHEN_FINISHED) {
@@ -601,11 +595,7 @@ public class ModSelectWindow extends JFrame
             newList.loadModsInOrder(newModel, info, modList);
             filter.setText("");
 
-            Thread tCfg = new Thread(() -> {
-                // Save new load order cfg
-                ModList.save(profileName, modList.getCheckedMods());
-            });
-            tCfg.start();
+            ModList.setDefaultList(profileName);
         });
         if (ModTheSpire.profileArg != null) {
             profilesList.setSelectedItem(ModTheSpire.profileArg);
@@ -645,6 +635,15 @@ public class ModSelectWindow extends JFrame
         panel.add(topPanel, BorderLayout.NORTH);
 
         return panel;
+    }
+
+    void saveCurrentModList()
+    {
+        Thread tCfg = new Thread(() -> {
+            // Save new load order cfg
+            ModList.save(ModList.getDefaultList(), modList.getCheckedMods());
+        });
+        tCfg.start();
     }
 
     void updateProfilesList()

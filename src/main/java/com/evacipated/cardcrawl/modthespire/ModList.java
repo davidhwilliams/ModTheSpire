@@ -59,6 +59,12 @@ public class ModList
         return saveData.defaultList;
     }
 
+    public static void setDefaultList(String list)
+    {
+        saveData.defaultList = list;
+        save();
+    }
+
     public static Collection<String> getAllModListNames()
     {
         return saveData.lists.keySet();

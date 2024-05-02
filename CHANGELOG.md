@@ -40,6 +40,7 @@
 * Remove MTS version from window title
 * Convert profile editing UI into separate window, renamed to Mod Lists
 * Convert toggle all mods button to menu items
+* Save mod list changes immediately rather than on pressing Play
 
 #### v3.30.3 ####
 * Fix package information being lost for patched classes (Alchyr)

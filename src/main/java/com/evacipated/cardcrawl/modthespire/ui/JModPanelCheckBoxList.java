@@ -69,6 +69,7 @@ public class JModPanelCheckBoxList extends JList<ModPanel> {
                         if (modPanel.checkBox.isEnabled()) {
                             modPanel.checkBox.setSelected(!modPanel.checkBox.isSelected());
                             repaint();
+                            parent.saveCurrentModList();
                         }
                     } else if (hovered != null) {
                         hovered.doClick();
