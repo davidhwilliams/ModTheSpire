@@ -298,9 +298,8 @@ public class ModSelectWindow extends JFrame
                 openFolder(path.getParent().toString(), false);
             }
         });
-        if (Arrays.stream(info).anyMatch(x -> x.workshopInfo != null)) {
-            openMenu.add(item);
-        }
+        item.setEnabled(Arrays.stream(info).anyMatch(x -> x.workshopInfo != null));
+        openMenu.add(item);
         item = new JMenuItem("Local Mods", ICON_FOLDER);
         item.setMnemonic(KeyEvent.VK_M);
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, KeyEvent.CTRL_MASK));
