@@ -369,6 +369,25 @@ public class ModSelectWindow extends JFrame
             modListEditor.setVisible(true);
         });
         menu.add(item);
+        menu.addSeparator();
+        // Enable all mods
+        item = new JMenuItem("Enable All Mods");
+        item.setMnemonic(KeyEvent.VK_E);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_MASK));
+        item.addActionListener(e -> {
+            modList.enableAllMods(true);
+            modList.repaint();
+        });
+        menu.add(item);
+        // Disable all mods
+        item = new JMenuItem("Disable All Mods");
+        item.setMnemonic(KeyEvent.VK_D);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_MASK));
+        item.addActionListener(e -> {
+            modList.enableAllMods(false);
+            modList.repaint();
+        });
+        menu.add(item);
         menuBar.add(menu);
 
         return menuBar;

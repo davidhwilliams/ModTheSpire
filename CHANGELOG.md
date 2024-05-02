@@ -39,6 +39,7 @@
 * Fix some mod info text being selectable
 * Remove MTS version from window title
 * Convert profile editing UI into separate window, renamed to Mod Lists
+* Convert toggle all mods button to menu items
 
 #### v3.30.3 ####
 * Fix package information being lost for patched classes (Alchyr)

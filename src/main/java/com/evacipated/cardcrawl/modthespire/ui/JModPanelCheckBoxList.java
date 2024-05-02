@@ -189,6 +189,18 @@ public class JModPanelCheckBoxList extends JList<ModPanel> {
         publishBoxChecked();
     }
 
+    public void enableAllMods(boolean enable)
+    {
+        for (int i=0; i<getModel().getSize(); ++i) {
+            ModPanel modPanel = getModel().getElementAt(i);
+            if (!modPanel.isFilteredOut()) {
+                modPanel.setSelected(enable);
+            }
+        }
+
+        publishBoxChecked();
+    }
+
     public synchronized void setUpdateIcon(ModInfo info, ModSelectWindow.UpdateIconType type)
     {
         for (int i=0; i<getModel().getSize(); ++i) {
