@@ -282,11 +282,12 @@ public class ModSelectWindow extends JFrame
         JMenu menu = new JMenu("ModTheSpire");
         menu.setMnemonic(KeyEvent.VK_M);
 
-        // Open Folder submenu
-        JMenu openMenu = new JMenu("Open Folder");
+        // Open Folder menu
+        JMenu openMenu = new JMenu("Open");
         openMenu.setMnemonic(KeyEvent.VK_O);
         JMenuItem item = new JMenuItem("Workshop Mods", ICON_WORKSHOP);
         item.setMnemonic(KeyEvent.VK_W);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             Optional<String> installPath = Arrays.stream(info)
                 .filter(x -> x.workshopInfo != null)
@@ -302,18 +303,21 @@ public class ModSelectWindow extends JFrame
         }
         item = new JMenuItem("Local Mods", ICON_FOLDER);
         item.setMnemonic(KeyEvent.VK_M);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             openFolder(ModTheSpire.MOD_DIR, true);
         });
         openMenu.add(item);
         item = new JMenuItem("Config Files", ICON_SETTINGS);
         item.setMnemonic(KeyEvent.VK_C);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             openFolder(ConfigUtils.CONFIG_DIR, false);
         });
         openMenu.add(item);
         item = new JMenuItem("Log Files", ICON_FILE);
         item.setMnemonic(KeyEvent.VK_L);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             openFolder("sendToDevs/", false);
         });
@@ -351,6 +355,7 @@ public class ModSelectWindow extends JFrame
         menu.add(item);
         menuBar.add(menu);
 
+        menuBar.add(openMenu);
         return menuBar;
     }
     private static void openFolder(String path, boolean createIfNotExist)
