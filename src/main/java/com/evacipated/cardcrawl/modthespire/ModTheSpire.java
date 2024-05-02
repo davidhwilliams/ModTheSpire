@@ -162,7 +162,10 @@ public class ModTheSpire
         allowBeta = MTS_CONFIG.getBool("allow-beta");
         boolean skipLauncher = MTS_CONFIG.getBool("skip-launcher");
         SKIP_INTRO = MTS_CONFIG.getBool("skip-intro");
-        profileArg = MTS_CONFIG.getString("profile");
+        profileArg = MTS_CONFIG.getString("mod-list");
+        if (profileArg == null) {
+            profileArg = MTS_CONFIG.getString("profile");
+        }
         String modIds = MTS_CONFIG.getString("mods");
         if (!LWJGL3_ENABLED) {
             LWJGL3_ENABLED = MTS_CONFIG.getBool("imgui");
@@ -196,7 +199,7 @@ public class ModTheSpire
             LWJGL3_ENABLED = true;
         }
 
-        int profileArgIndex = argList.indexOf("--profile");
+        int profileArgIndex = Math.max(argList.indexOf("--profile"), argList.indexOf("--mod-list"));
         if (profileArgIndex >= 0 && argList.size() > profileArgIndex + 1) {
             profileArg = argList.get(profileArgIndex+1);
         }

@@ -39,6 +39,7 @@
 * Fix some mod info text being selectable
 * Remove MTS version from window title
 * Convert profile editing UI into separate window, renamed to Mod Lists
+* Add alias for profile flag: mod-list
 * Convert toggle all mods button to menu items
 * Save mod list changes immediately rather than on pressing Play
 
