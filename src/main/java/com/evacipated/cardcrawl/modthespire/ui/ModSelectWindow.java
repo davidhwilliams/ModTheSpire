@@ -7,7 +7,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.icons.FlatCheckBoxIcon;
 import com.formdev.flatlaf.icons.FlatSearchIcon;
 import ru.krlvm.swingdpi.SwingDPI;
 
@@ -62,6 +61,7 @@ public class ModSelectWindow extends JFrame
     private JPopupMenu playBtnPopup;
 
     private JModPanelCheckBoxList modList;
+    private JComboBox<String> profilesList;
 
     private ModInfo currentModInfo;
     private TitledBorder name;
@@ -356,6 +356,21 @@ public class ModSelectWindow extends JFrame
         menuBar.add(menu);
 
         menuBar.add(openMenu);
+
+        // Edit menu
+        menu = new JMenu("Edit");
+        menu.setMnemonic(KeyEvent.VK_E);
+        // Mod List editor
+        item = new JMenuItem("Mod Lists");
+        item.addActionListener(e -> {
+            JDialog modListEditor = new ModListEditorWindow(ModSelectWindow.this);
+            modListEditor.pack();
+            modListEditor.setLocationRelativeTo(ModSelectWindow.this);
+            modListEditor.setVisible(true);
+        });
+        menu.add(item);
+        menuBar.add(menu);
+
         return menuBar;
     }
     private static void openFolder(String path, boolean createIfNotExist)
@@ -538,35 +553,30 @@ public class ModSelectWindow extends JFrame
         }
         panel.add(playBtn, BorderLayout.SOUTH);
 
-        // Toggle all button
-        JButton toggleAllBtn = new JButton(new FlatCheckBoxIcon()) {
-            @Override
-            public void updateUI()
-            {
-                super.updateUI();
-                setIcon(new FlatCheckBoxIcon());
-            }
-        };
-        toggleAllBtn.setToolTipText("Toggle all mods On/Off");
-        toggleAllBtn.addActionListener((ActionEvent event) -> {
-            modList.toggleAllMods();
-            repaint();
-        });
-
-        JComboBox<String> profilesList = new JComboBox<>(ModList.getAllModListNames().toArray(new String[0]));
-        JButton addProfile = new JButton("+");
-        JButton delProfile = new JButton("-");
-        JButton renameProfile = new JButton(new FlatRenameIcon());
+        profilesList = new JComboBox<>();
+        updateProfilesList();
 
         JTextField filter = new JTextField();
         filter.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
         filter.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSearchIcon());
         filter.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        // Focus filter text field  on Ctrl+F
+        rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK),
+            "search"
+        );
+        rootPane.getActionMap().put("search", new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                filter.requestFocusInWindow();
+            }
+        });
 
         profilesList.addActionListener((ActionEvent event) -> {
             String profileName = (String) profilesList.getSelectedItem();
-            renameProfile.setEnabled(!ModList.DEFAULT_LIST.equals(profileName));
-            delProfile.setEnabled(!ModList.DEFAULT_LIST.equals(profileName));
+            if (profileName == null) return;
             ModList newList = new ModList(profileName);
             DefaultListModel<ModPanel> newModel = (DefaultListModel<ModPanel>) modList.getModel();
             newList.loadModsInOrder(newModel, info, modList);
@@ -583,72 +593,6 @@ public class ModSelectWindow extends JFrame
         } else {
             profilesList.setSelectedItem(ModList.getDefaultList());
         }
-
-        JPanel profilesPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.ipady = 2;
-        profilesPanel.add(toggleAllBtn, c);
-        c.weightx = 0.9;
-        c.ipady = 0;
-        profilesPanel.add(profilesList, c);
-        c.weightx = 0;
-        c.ipady = 2;
-        // Edit profile name button
-        renameProfile.setToolTipText("Rename profile");
-        renameProfile.addActionListener((ActionEvent event) -> {
-            int index = profilesList.getSelectedIndex();
-            String profileName = (String) profilesList.getSelectedItem();
-            String s = (String) JOptionPane.showInputDialog(
-                this,
-                "Profile Name:",
-                "Rename Profile",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                profileName
-            );
-            if (s != null && !s.isEmpty() && !s.equals(profileName)) {
-                ModList.rename(profileName, s);
-                profilesList.removeItem(profileName);
-                profilesList.insertItemAt(s, index);
-                profilesList.setSelectedItem(s);
-            }
-        });
-        profilesPanel.add(renameProfile, c);
-        // Add profile button
-        addProfile.setToolTipText("Add new profile");
-        addProfile.addActionListener((ActionEvent event) -> {
-            String s = JOptionPane.showInputDialog(
-                this,
-                "Profile Name:",
-                "New Profile",
-                JOptionPane.PLAIN_MESSAGE
-            );
-            if (s != null && !s.isEmpty()) {
-                profilesList.addItem(s);
-                profilesList.setSelectedIndex(profilesList.getItemCount() - 1);
-            }
-        });
-        profilesPanel.add(addProfile, c);
-        // Delete profile button
-        delProfile.setToolTipText("Delete profile");
-        delProfile.addActionListener((ActionEvent event) -> {
-            String profileName = (String) profilesList.getSelectedItem();
-
-            int n = JOptionPane.showConfirmDialog(
-                this,
-                "Are you sure?\nThis action cannot be undone.",
-                "Delete Profile \"" + profileName + "\"",
-                JOptionPane.YES_NO_OPTION
-            );
-            if (n == 0) {
-                profilesList.removeItem(profileName);
-                profilesList.setSelectedItem(ModList.DEFAULT_LIST);
-                ModList.delete(profileName);
-            }
-        });
-        profilesPanel.add(delProfile, c);
 
         Runnable filterModList = () -> {
             String filterText = filter.getText().trim().toLowerCase();
@@ -677,11 +621,38 @@ public class ModSelectWindow extends JFrame
         });
 
         JPanel topPanel = new JPanel(new GridLayout(0, 1));
-        topPanel.add(profilesPanel);
+        topPanel.add(profilesList);
         topPanel.add(filter);
         panel.add(topPanel, BorderLayout.NORTH);
 
         return panel;
+    }
+
+    void updateProfilesList()
+    {
+        updateProfilesList(null, null);
+    }
+
+    void updateProfilesList(String oldName, String newName)
+    {
+        String selected = (String) profilesList.getSelectedItem();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(ModList.getAllModListNames().toArray(new String[0]));
+        profilesList.setModel(model);
+
+        if (oldName != null && newName != null) {
+            if (oldName.equals(selected)) {
+                selected = newName;
+            }
+        }
+
+        if (model.getIndexOf(selected) == -1) {
+            selected = null;
+        }
+        if (selected != null) {
+            profilesList.setSelectedItem(selected);
+        } else {
+            profilesList.setSelectedIndex(0);
+        }
     }
 
     private void setPlayButtonLabel()
