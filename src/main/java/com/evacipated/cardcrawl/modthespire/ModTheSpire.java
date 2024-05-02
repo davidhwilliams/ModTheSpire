@@ -608,6 +608,8 @@ public class ModTheSpire
             ClassReader classReader2 = new ClassReader(in2);
 
             classReader2.accept(new GameBetaFinder(), 0);
+
+            tmpLoader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
