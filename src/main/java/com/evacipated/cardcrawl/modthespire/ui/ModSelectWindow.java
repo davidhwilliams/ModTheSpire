@@ -280,14 +280,29 @@ public class ModSelectWindow extends JFrame
     {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("ModTheSpire");
+        JMenuItem item;
         menu.setMnemonic(KeyEvent.VK_M);
 
         // Open Folder menu
         JMenu openMenu = new JMenu("Open");
         openMenu.setMnemonic(KeyEvent.VK_O);
-        JMenuItem item = new JMenuItem("Workshop Mods", ICON_WORKSHOP);
-        item.setMnemonic(KeyEvent.VK_W);
+        item = new JMenuItem("Slay the Spire");
+        try {
+            String surl = new File(ModTheSpire.STS_JAR).toURI().toURL().toString();
+            URL url = new URL("jar:" + surl + "!/images/ui/icon.png");
+            ImageIcon icon = new ImageIcon(url);
+            icon.setImage(icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+            item.setIcon(icon);
+        } catch (Exception ignored) {}
+        item.setMnemonic(KeyEvent.VK_S);
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.CTRL_MASK));
+        item.addActionListener((ActionEvent event) -> {
+            openFolder(Paths.get(ModTheSpire.STS_JAR).toFile().getParent(), false);
+        });
+        openMenu.add(item);
+        item = new JMenuItem("Workshop Mods", ICON_WORKSHOP);
+        item.setMnemonic(KeyEvent.VK_W);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             Optional<String> installPath = Arrays.stream(info)
                 .filter(x -> x.workshopInfo != null)
@@ -302,21 +317,21 @@ public class ModSelectWindow extends JFrame
         openMenu.add(item);
         item = new JMenuItem("Local Mods", ICON_FOLDER);
         item.setMnemonic(KeyEvent.VK_M);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, KeyEvent.CTRL_MASK));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             openFolder(ModTheSpire.MOD_DIR, true);
         });
         openMenu.add(item);
         item = new JMenuItem("Config Files", ICON_SETTINGS);
         item.setMnemonic(KeyEvent.VK_C);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, KeyEvent.CTRL_MASK));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             openFolder(ConfigUtils.CONFIG_DIR, false);
         });
         openMenu.add(item);
         item = new JMenuItem("Log Files", ICON_FILE);
         item.setMnemonic(KeyEvent.VK_L);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, KeyEvent.CTRL_MASK));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, KeyEvent.CTRL_MASK));
         item.addActionListener((ActionEvent event) -> {
             openFolder("sendToDevs/", false);
         });

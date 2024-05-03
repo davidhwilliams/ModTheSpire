@@ -30,6 +30,7 @@
 * Make Steam icon on mod open the mod's workshop page when clicked
 * Display multiple icons for mods that have local and workshop versions
 * Add button to open logs folder
+* Add button to open StS folder
 * Add ability to edit profile names
 * Add requiredModId to SpireEnum
 * Fix SpirePatch requiredModId not accounting for sideloading
