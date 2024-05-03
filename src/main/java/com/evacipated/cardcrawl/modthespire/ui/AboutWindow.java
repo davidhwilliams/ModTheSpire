@@ -1,7 +1,5 @@
 package com.evacipated.cardcrawl.modthespire.ui;
 
-import com.formdev.flatlaf.FlatClientProperties;
-
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
@@ -51,6 +49,7 @@ public class AboutWindow extends JDialog
         textAbout.setText(
             new BufferedReader(new InputStreamReader(AboutWindow.class.getResourceAsStream("/mtsAbout.html")))
                 .lines().collect(Collectors.joining("\n"))
+                .replaceAll("\\{java.version}", System.getProperty("java.version"))
         );
         textAbout.addHyperlinkListener(e -> {
             if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
