@@ -1019,7 +1019,9 @@ public class ModSelectWindow extends JFrame
 
     private void refreshDependenciesView(boolean modderMode)
     {
-        dependencies.setText(currentModInfo.getDependenciesRepr(!modderMode));
+        if (currentModInfo != null) {
+            dependencies.setText(currentModInfo.getDependenciesRepr(!modderMode));
+        }
     }
 
     synchronized void setModUpdateBanner(ModInfo info)
