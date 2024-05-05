@@ -336,7 +336,6 @@ public class ModSelectWindow extends JFrame
             openFolder("sendToDevs/", false);
         });
         openMenu.add(item);
-        menu.add(openMenu);
 
         // Check for Updates button
         item = new JMenuItem("Check for Mod Updates", ICON_UPDATE);
@@ -368,8 +367,6 @@ public class ModSelectWindow extends JFrame
         });
         menu.add(item);
         menuBar.add(menu);
-
-        menuBar.add(openMenu);
 
         // Edit menu
         menu = new JMenu("Edit");
@@ -403,6 +400,8 @@ public class ModSelectWindow extends JFrame
         });
         menu.add(item);
         menuBar.add(menu);
+
+        menuBar.add(openMenu);
 
         return menuBar;
     }
