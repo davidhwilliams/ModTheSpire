@@ -50,7 +50,7 @@ public class ModTheSpire
     public static String STS_PATCHED_JAR = "desktop-1.0-patched.jar";
     public static String JRE_51_DIR = "jre1.8.0_51";
     public static ModInfo[] MODINFOS;
-    private static ModInfo[] ALLMODINFOS;
+    static ModInfo[] ALLMODINFOS;
     private static ClassPool POOL;
     private static List<SteamSearch.WorkshopInfo> WORKSHOP_INFOS;
 

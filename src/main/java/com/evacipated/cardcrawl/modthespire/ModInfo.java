@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -74,6 +75,27 @@ public class ModInfo implements Serializable
             return Name;
         } else {
             return ID;
+        }
+    }
+
+    public String getDependenciesRepr(boolean friendly)
+    {
+        if (Dependencies.length == 0) {
+            return " ";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int iMax = Dependencies.length - 1;
+        for (int i=0; ; ++i) {
+            if (friendly) {
+                sb.append(Dependencies[i].name());
+            } else {
+                sb.append(Dependencies[i].toString());
+            }
+            if (i == iMax) {
+                return sb.toString();
+            }
+            sb.append(", ");
         }
     }
     
@@ -282,6 +304,24 @@ public class ModInfo implements Serializable
             }
 
             StringBuilder sb = new StringBuilder(id);
+            if (version != null && comparison != null) {
+                sb.append(comparison.repr()).append(version);
+            }
+            return sb.toString();
+        }
+
+        public String name()
+        {
+            if (id == null) {
+                throw new IllegalStateException("Dependency id should not be null");
+            }
+
+            String name = Arrays.stream(ModTheSpire.ALLMODINFOS)
+                .filter(x -> Objects.equals(x.ID, id))
+                .map(x -> x.Name)
+                .findFirst()
+                .orElse(id);
+            StringBuilder sb = new StringBuilder(name);
             if (version != null && comparison != null) {
                 sb.append(comparison.repr()).append(version);
             }

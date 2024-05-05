@@ -711,6 +711,7 @@ public class ModSelectWindow extends JFrame
     {
         setPlayButtonOptions(enabled);
         modID.setVisible(enabled);
+        refreshDependenciesView(enabled);
     }
 
     private JPanel makeInfoPanel()
@@ -1008,23 +1009,18 @@ public class ModSelectWindow extends JFrame
         description.setText(info.Description);
         description.setCaretPosition(0);
         credits.setText(info.Credits);
-        if (info.Dependencies.length == 0) {
-            dependencies.setText(" ");
-        } else {
-            String dependenciesStr = Arrays.toString(info.Dependencies);
-            try {
-                dependencies.setText(dependenciesStr.substring(1, dependenciesStr.length() - 1));
-            } catch (ArrayIndexOutOfBoundsException ignore) {
-                // Just in case, don't want to crash
-                dependencies.setText(dependenciesStr);
-            }
-        }
+        refreshDependenciesView(MODDER_MODE);
 
         status.setText(info.statusMsg);
 
         setModUpdateBanner(info);
 
         repaint();
+    }
+
+    private void refreshDependenciesView(boolean modderMode)
+    {
+        dependencies.setText(currentModInfo.getDependenciesRepr(!modderMode));
     }
 
     synchronized void setModUpdateBanner(ModInfo info)
