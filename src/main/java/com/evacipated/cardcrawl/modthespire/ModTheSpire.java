@@ -105,6 +105,11 @@ public class ModTheSpire
         return WORKSHOP_INFOS;
     }
 
+    public static boolean isAchievementsEnabled()
+    {
+        return MTS_CONFIG.getBool("achievements", false);
+    }
+
     public static void main(String[] args)
     {
         List<String> argList = Arrays.asList(args);

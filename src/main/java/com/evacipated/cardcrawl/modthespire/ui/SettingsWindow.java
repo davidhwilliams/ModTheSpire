@@ -24,6 +24,7 @@ public class SettingsWindow extends JDialog
     private JComboBox<UIScale> comboUIScale;
     private JComboBox<String> comboTheme;
     private JCheckBox checkModderMode;
+    private JCheckBox checkAchievements;
 
     public SettingsWindow(Frame owner)
     {
@@ -89,6 +90,12 @@ public class SettingsWindow extends JDialog
             "skip-intro",
             SettingsWindow::getSkipIntro,
             SettingsWindow::setSkipIntro
+        );
+        registerCheckBox(
+            checkAchievements,
+            "achievements",
+            SettingsWindow::getEnableAchievements,
+            x -> {}
         );
 
         for (float f = 1f; f <= 3f; f += 0.25f) {
@@ -217,6 +224,11 @@ public class SettingsWindow extends JDialog
         ModTheSpire.SKIP_INTRO = value;
     }
 
+    private static boolean getEnableAchievements()
+    {
+        return ModTheSpire.isAchievementsEnabled();
+    }
+
     private void onClose()
     {
         // add your code here
@@ -311,11 +323,18 @@ public class SettingsWindow extends JDialog
         checkSkipIntro.setVerticalAlignment(0);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         panel5.add(checkSkipIntro, gbc);
+        checkAchievements = new JCheckBox();
+        checkAchievements.setText("Enable Achievements");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel5.add(checkAchievements, gbc);
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();

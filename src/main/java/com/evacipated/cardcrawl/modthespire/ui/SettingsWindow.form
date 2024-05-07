@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.evacipated.cardcrawl.modthespire.ui.SettingsWindow">
   <grid id="cbd77" binding="contentPane" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="48" y="54" width="548" height="584"/>
+      <xy x="48" y="54" width="548" height="605"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -66,7 +66,7 @@
                 <children>
                   <component id="60096" class="javax.swing.JCheckBox" binding="checkSkipIntro">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                       <gridbag weightx="1.0" weighty="1.0"/>
                     </constraints>
                     <properties>
@@ -74,6 +74,15 @@
                       <text value="Skip Intro"/>
                       <toolTipText value="Will skip the Mega Crit logo splash screen, getting to the main menu slightly faster."/>
                       <verticalAlignment value="0"/>
+                    </properties>
+                  </component>
+                  <component id="391f5" class="javax.swing.JCheckBox" binding="checkAchievements">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Enable Achievements"/>
                     </properties>
                   </component>
                 </children>
