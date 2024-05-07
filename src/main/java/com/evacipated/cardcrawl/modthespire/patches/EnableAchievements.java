@@ -25,9 +25,19 @@ public class EnableAchievements
             public void edit(FieldAccess f) throws CannotCompileException
             {
                 if (f.isReader() && f.getClassName().equals(Settings.class.getName()) && f.getFieldName().equals("isModded")) {
-                    f.replace("$_ = !" + ModTheSpire.class.getName() + ".isAchievementsEnabled();");
+                    f.replace("$_ = !" + EnableAchievements.class.getName() + ".isAchievementsEnabled($proceed($$));");
                 }
             }
         };
+    }
+
+    public static boolean isAchievementsEnabled(boolean isModded)
+    {
+        // Always allow achievements if isModded has been changed to false by something
+        // like the Achievement Enabler mod
+        if (!isModded) {
+            return true;
+        }
+        return ModTheSpire.isAchievementsEnabled();
     }
 }
