@@ -130,15 +130,19 @@ public class SettingsWindow extends JDialog
     {
         checkBox.setSelected(getter.getAsBoolean());
         checkBox.addItemListener(e -> {
+            Boolean value = null;
             switch (e.getStateChange()) {
                 case ItemEvent.SELECTED:
-                    setter.accept(true);
+                    value = true;
                     break;
                 case ItemEvent.DESELECTED:
-                    setter.accept(false);
+                    value = false;
                     break;
             }
-            saveSetting(saveKey, getter.getAsBoolean());
+            if (value != null) {
+                setter.accept(value);
+                saveSetting(saveKey, value);
+            }
         });
     }
 
