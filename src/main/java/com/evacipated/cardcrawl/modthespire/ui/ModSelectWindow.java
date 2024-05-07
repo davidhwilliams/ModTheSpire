@@ -107,22 +107,13 @@ public class ModSelectWindow extends JFrame
     {
         FlatLaf.registerCustomDefaultsSource("mtsThemes");
         rootPane.putClientProperty("JRootPane.titleBarShowTitle", false);
-        if (ModTheSpire.MTS_CONFIG.has("uiTheme")) {
-            String theme = ModTheSpire.MTS_CONFIG.getString("uiTheme");
-            setTheme(theme);
-        } else {
-            setTheme("Light");
+        setTheme(ModTheSpire.MTS_CONFIG.getString("uiTheme", "Light"));
+        UI_SCALE = ModTheSpire.MTS_CONFIG.getFloat("uiScale", 1f);
+        if (UI_SCALE != 1f) {
+            SwingDPI.setScaleFactor(UI_SCALE);
+            SwingDPI.setScaleApplied(true);
         }
-        if (ModTheSpire.MTS_CONFIG.has("uiScale")) {
-            UI_SCALE = ModTheSpire.MTS_CONFIG.getFloat("uiScale");
-            if (UI_SCALE != 1f) {
-                SwingDPI.setScaleFactor(UI_SCALE);
-                SwingDPI.setScaleApplied(true);
-            }
-        }
-        if (ModTheSpire.MTS_CONFIG.has("modder")) {
-            MODDER_MODE = ModTheSpire.MTS_CONFIG.getBool("modder");
-        }
+        MODDER_MODE = ModTheSpire.MTS_CONFIG.getBool("modder", false);
 
         setIconImage(APP_ICON);
 

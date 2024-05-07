@@ -77,6 +77,11 @@ public class SpireConfig
         return properties.getProperty(key);
     }
 
+    public String getString(String key, String defaultValue)
+    {
+        return properties.getProperty(key, defaultValue);
+    }
+
     public void setString(String key, String value)
     {
         properties.setProperty(key, value);
@@ -85,6 +90,14 @@ public class SpireConfig
     public boolean getBool(String key)
     {
         return Boolean.parseBoolean(getString(key));
+    }
+
+    public boolean getBool(String key, boolean defaultValue)
+    {
+        if (has(key)) {
+            return getBool(key);
+        }
+        return defaultValue;
     }
 
     public void setBool(String key, boolean value)
@@ -97,6 +110,13 @@ public class SpireConfig
         return Integer.parseInt(getString(key));
     }
 
+    public int getInt(String key, int defaultValue) {
+        if (has(key)) {
+            return getInt(key);
+        }
+        return defaultValue;
+    }
+
     public void setInt(String key, int value)
     {
         setString(key, Integer.toString(value));
@@ -105,6 +125,14 @@ public class SpireConfig
     public float getFloat(String key)
     {
         return Float.parseFloat(getString(key));
+    }
+
+    public float getFloat(String key, float defaultValue)
+    {
+        if (has(key)) {
+            return getFloat(key);
+        }
+        return defaultValue;
     }
 
     public void setFloat(String key, float value)

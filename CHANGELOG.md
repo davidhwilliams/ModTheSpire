@@ -44,6 +44,7 @@
 * Convert toggle all mods button to menu items
 * Save mod list changes immediately rather than on pressing Play
 * Display mod dependencies by name when not in Modder Mode
+* Add default value options to SpireConfig get methods
 
 #### v3.30.3 ####
 * Fix package information being lost for patched classes (Alchyr)
