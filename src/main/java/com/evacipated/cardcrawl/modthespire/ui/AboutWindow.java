@@ -50,6 +50,7 @@ public class AboutWindow extends JDialog
             new BufferedReader(new InputStreamReader(AboutWindow.class.getResourceAsStream("/mtsAbout.html")))
                 .lines().collect(Collectors.joining("\n"))
                 .replaceAll("\\{java.version}", System.getProperty("java.version"))
+                .replaceAll("\\{java.home}", System.getProperty("java.home").replace("\\", "\\\\"))
         );
         textAbout.addHyperlinkListener(e -> {
             if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
