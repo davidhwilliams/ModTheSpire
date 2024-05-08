@@ -614,6 +614,15 @@ public class ModTheSpire
 
             classReader2.accept(new GameBetaFinder(), 0);
 
+            // Read distributor
+            try {
+                Properties prop = new Properties();
+                prop.load(tmpLoader.getResourceAsStream("build.properties"));
+                ModSelectWindow.stsDistributor = prop.getProperty("distributor", "unknown");
+            } catch (Exception ignored) {
+                ModSelectWindow.stsDistributor = "unknown";
+            }
+
             tmpLoader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -814,7 +823,7 @@ public class ModTheSpire
     {
         out.println("Version Info:");
         out.printf(" - Java version (%s)\n", System.getProperty("java.version"));
-        out.printf(" - Slay the Spire (%s)", STS_VERSION);
+        out.printf(" - Slay the Spire (%s %s)", STS_VERSION, ModSelectWindow.stsDistributor);
         if (STS_BETA) {
             out.printf(" BETA");
         }

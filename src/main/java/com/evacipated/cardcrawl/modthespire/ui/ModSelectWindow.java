@@ -86,6 +86,7 @@ public class ModSelectWindow extends JFrame
 
     static float UI_SCALE = 1f;
     static boolean MODDER_MODE = false;
+    public static String stsDistributor = null;
 
     public enum UpdateIconType
     {
@@ -859,6 +860,7 @@ public class ModSelectWindow extends JFrame
         if (ModTheSpire.STS_BETA) {
             sts_version.setText(sts_version.getText() + " BETA");
         }
+        sts_version.setText(sts_version.getText() + String.format(" (%s)", stsDistributor));
         sts_version.setHorizontalAlignment(SwingConstants.RIGHT);
         panel.add(sts_version, BorderLayout.EAST);
 
