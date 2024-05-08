@@ -350,6 +350,7 @@ public class ModSelectWindow extends JFrame
         menu.addSeparator();
         // About
         item = new JMenuItem("About");
+        item.setMnemonic(KeyEvent.VK_A);
         item.addActionListener((ActionEvent event) -> {
             JDialog aboutWindow = new AboutWindow(ModSelectWindow.this);
             aboutWindow.pack();
@@ -364,6 +365,7 @@ public class ModSelectWindow extends JFrame
         menu.setMnemonic(KeyEvent.VK_E);
         // Mod List editor
         item = new JMenuItem("Mod Lists...");
+        item.setMnemonic(KeyEvent.VK_L);
         item.addActionListener(e -> {
             JDialog modListEditor = new ModListEditorWindow(ModSelectWindow.this);
             modListEditor.pack();
