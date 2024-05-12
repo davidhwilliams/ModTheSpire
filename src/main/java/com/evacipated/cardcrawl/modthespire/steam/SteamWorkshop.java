@@ -3,8 +3,10 @@ package com.evacipated.cardcrawl.modthespire.steam;
 import com.codedisaster.steamworks.*;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Scanner;
 
 public class SteamWorkshop
 {
@@ -12,8 +14,6 @@ public class SteamWorkshop
 
     private static SteamUGC workshop;
     private static SteamData data;
-
-    private static boolean kill = false;
 
     public static void main(String[] args)
     {
@@ -58,6 +58,9 @@ public class SteamWorkshop
             SteamUGCQuery query = workshop.createQueryUGCDetailsRequest(Arrays.asList(publishedFileIDS));
             workshop.sendQueryUGCRequest(query);
 
+            Scanner scanner = new Scanner(System.in).useDelimiter("\0");
+
+            loop:
             while (SteamAPI.isSteamRunning()) {
                 try {
                     Thread.sleep(66L);
@@ -66,9 +69,15 @@ public class SteamWorkshop
                 }
                 SteamAPI.runCallbacks();
 
-                if (kill) {
-//                    break;
-                }
+                try {
+                    if (System.in.available() > 0) {
+                        String command = scanner.next();
+                        switch (command) {
+                            case "quit":
+                                break loop;
+                        }
+                    }
+                } catch (IOException ignored) {}
             }
         }
 
@@ -116,7 +125,6 @@ public class SteamWorkshop
 
             resultsReceived += numResultsReturned;
             if (resultsReceived >= totalMatchingResults) {
-                kill = true;
                 Gson gson = new Gson();
                 String json = gson.toJson(data);
                 System.out.println(json);

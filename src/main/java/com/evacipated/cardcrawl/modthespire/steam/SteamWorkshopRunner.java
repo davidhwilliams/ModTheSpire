@@ -6,10 +6,12 @@ import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class SteamWorkshopRunner
 {
@@ -54,5 +56,26 @@ public class SteamWorkshopRunner
             e.printStackTrace();
         }
         return workshopInfos;
+    }
+
+    public static void stop()
+    {
+        if (p == null) {
+            throw new IllegalStateException();
+        }
+
+        if (p.isAlive()) {
+            try {
+                OutputStreamWriter writer = new OutputStreamWriter(p.getOutputStream());
+                writer.write("quit\0");
+                writer.flush();
+                if (!p.waitFor(100, TimeUnit.MILLISECONDS)) {
+                    p.destroy();
+                }
+            } catch (IOException | InterruptedException ignored) {
+                p.destroy();
+            }
+        }
+        p = null;
     }
 }
