@@ -2,7 +2,7 @@ package com.evacipated.cardcrawl.modthespire;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.steam.SteamSearch;
-import com.evacipated.cardcrawl.modthespire.steam.SteamWorkshop;
+import com.evacipated.cardcrawl.modthespire.steam.SteamWorkshopRunner;
 import com.evacipated.cardcrawl.modthespire.ui.ModSelectWindow;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -257,65 +257,7 @@ public class ModTheSpire
             }
         }
 
-        List<SteamSearch.WorkshopInfo> workshopInfos = new ArrayList<>();
-        try {
-            System.out.println("Searching for Workshop items...");
-            String path = SteamWorkshop.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-            path = URLDecoder.decode(path, "utf-8");
-            path = new File(path).getPath();
-            ProcessBuilder pb = new ProcessBuilder(
-                SteamSearch.findJRE(),
-                "-cp", path + File.pathSeparatorChar + STS_JAR,
-                "com.evacipated.cardcrawl.modthespire.steam.SteamWorkshop"
-            ).redirectError(ProcessBuilder.Redirect.INHERIT);
-            Process p = pb.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            Boolean steamDeck = null;
-            String title = null;
-            String id = null;
-            String installPath = null;
-            String timeUpdated = null;
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                if (steamDeck == null) {
-                    steamDeck = Boolean.parseBoolean(line);
-                } else if (title == null) {
-                    title = line;
-                } else if (id == null) {
-                    id = line;
-                } else if (installPath == null) {
-                    installPath = line;
-                } else if (timeUpdated == null) {
-                    timeUpdated = line;
-                } else {
-                    SteamSearch.WorkshopInfo info = new SteamSearch.WorkshopInfo(title, id, installPath, timeUpdated, line);
-                    if (!info.hasTag("tool") && !info.hasTag("tools")) {
-                        workshopInfos.add(info);
-                    }
-                    title = null;
-                    id = null;
-                    installPath = null;
-                    timeUpdated = null;
-                }
-            }
-            if (steamDeck != null) {
-                LWJGL3_ENABLED = LWJGL3_ENABLED || steamDeck;
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /*
-        for (SteamSearch.WorkshopInfo info : workshopInfos) {
-            System.out.println(info.getTitle());
-            System.out.println(info.getInstallPath());
-            System.out.println(info.getTimeUpdated());
-            System.out.println(Arrays.toString(info.getTags().toArray()));
-        }
-        //*/
+        List<SteamSearch.WorkshopInfo> workshopInfos = SteamWorkshopRunner.findWorkshopInfos();
         System.out.println("Got " + workshopInfos.size() + " workshop items");
 
         convertOldWorkshopInfoFiles(workshopInfos);

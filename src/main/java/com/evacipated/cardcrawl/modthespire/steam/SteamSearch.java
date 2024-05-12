@@ -214,22 +214,32 @@ public class SteamSearch
         private final int timeUpdated;
         private List<String> tags;
 
-        public WorkshopInfo(String title, String id, String installPath, String timeUpdated, String tagsString)
+        public WorkshopInfo(String title, String id, String installPath, int timeUpdated, String tagsString)
         {
             this.title = title;
             this.id = Long.parseLong(id, 16);
             this.installPath = Paths.get(installPath).toAbsolutePath().toString();
-            int tmpTime = 0;
-            try {
-                tmpTime = Integer.parseInt(timeUpdated);
-            } catch (NumberFormatException ignore) {
-            }
-            this.timeUpdated = tmpTime;
+            this.timeUpdated = timeUpdated;
             String[] tmp = tagsString.split(",");
             tags = new ArrayList<>();
             for (String s : tmp) {
                 tags.add(s.toLowerCase().trim());
             }
+        }
+
+        public WorkshopInfo(String title, String id, String installPath, String timeUpdated, String tagsString)
+        {
+            this(title, id, installPath, atoi(timeUpdated), tagsString);
+        }
+
+        private static int atoi(String str)
+        {
+            int tmp = 0;
+            try {
+                tmp = Integer.parseInt(str);
+            } catch (NumberFormatException ignore) {
+            }
+            return tmp;
         }
 
         public String getTitle()
