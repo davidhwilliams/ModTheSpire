@@ -25,6 +25,7 @@ public class SettingsWindow extends JDialog
     private JComboBox<String> comboTheme;
     private JCheckBox checkModderMode;
     private JCheckBox checkAchievements;
+    private JCheckBox checkAscension;
 
     public SettingsWindow(Frame owner)
     {
@@ -94,8 +95,12 @@ public class SettingsWindow extends JDialog
         registerCheckBox(
             checkAchievements,
             "achievements",
-            SettingsWindow::getEnableAchievements,
-            x -> {}
+            false
+        );
+        registerCheckBox(
+            checkAscension,
+            "ascensionUnlock",
+            false
         );
 
         for (float f = 1f; f <= 3f; f += 0.25f) {
@@ -151,6 +156,16 @@ public class SettingsWindow extends JDialog
                 saveSetting(saveKey, value);
             }
         });
+    }
+
+    private void registerCheckBox(JCheckBox checkBox, String saveKey, boolean defaultValue)
+    {
+        registerCheckBox(
+            checkBox,
+            saveKey,
+            () -> ModTheSpire.MTS_CONFIG.getBool(saveKey, defaultValue),
+            x -> {}
+        );
     }
 
     private static void saveSetting(String setting, String value)
@@ -222,11 +237,6 @@ public class SettingsWindow extends JDialog
     private static void setSkipIntro(boolean value)
     {
         ModTheSpire.SKIP_INTRO = value;
-    }
-
-    private static boolean getEnableAchievements()
-    {
-        return ModTheSpire.isAchievementsEnabled();
     }
 
     private void onClose()
@@ -323,7 +333,7 @@ public class SettingsWindow extends JDialog
         checkSkipIntro.setVerticalAlignment(0);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
@@ -335,6 +345,14 @@ public class SettingsWindow extends JDialog
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         panel5.add(checkAchievements, gbc);
+        checkAscension = new JCheckBox();
+        checkAscension.setText("Unlock Ascension");
+        checkAscension.setToolTipText("Allows you to play any Ascension level on any character immediately.");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel5.add(checkAscension, gbc);
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();

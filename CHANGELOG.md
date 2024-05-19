@@ -46,6 +46,7 @@
 * Display mod dependencies by name when not in Modder Mode
 * Add default value options to SpireConfig get methods
 * Add setting to enable achievements
+* Add setting to unlock A20 for all characters
 * Read and display StS build distributor
 
 #### v3.30.3 ####
