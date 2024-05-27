@@ -46,10 +46,10 @@ public class MTSClassLoader extends URLClassLoader
         }
     }
 
-    private ClassLoader parent;
-    private Map<String, byte[]> classes = new HashMap<>();
-    private Map<String, Class<?>> definedClasses = new HashMap<>();
-    private Map<String, byte[]> resources = new HashMap<>();
+    private final ClassLoader parent;
+    private final Map<String, byte[]> classes = new HashMap<>();
+    private final Map<String, Class<?>> definedClasses = new HashMap<>();
+    private final Map<String, byte[]> resources = new HashMap<>();
 
     private final Map<String, Package> packages;
     private final URLClassPath ucp;

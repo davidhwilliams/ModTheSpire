@@ -426,8 +426,7 @@ public class NestedException extends Exception
                 }
             }
 
-            if (! messages.contains(s))
-                messages.add(s);
+            messages.add(s);
 
             ex = ex.getCause();
         }

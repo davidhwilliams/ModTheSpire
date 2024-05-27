@@ -38,9 +38,9 @@ public interface ParameterHandler
      *                                    so it's safe for implementations of
      *                                    this method not to handle it
      */
-    public void parseOption(char             shortOption,
-                            String           longOption, 
-                            Iterator<String> it)
+    void parseOption(char shortOption,
+                     String longOption,
+                     Iterator<String> it)
         throws CommandLineUsageException,
                NoSuchElementException;
 
@@ -58,7 +58,7 @@ public interface ParameterHandler
      *                                    so it's safe for implementations of
      *                                    this method not to handle it
      */
-    public void parsePostOptionParameters(Iterator<String> it)
+    void parsePostOptionParameters(Iterator<String> it)
         throws CommandLineUsageException,
                NoSuchElementException;
 }

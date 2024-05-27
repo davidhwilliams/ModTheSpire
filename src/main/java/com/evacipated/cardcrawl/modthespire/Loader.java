@@ -38,10 +38,10 @@ public class Loader
 
     public static Semver MTS_VERSION;
     public static String MOD_DIR = "mods/";
-    private static String BETA_SUBDIR = "beta/";
+    private static final String BETA_SUBDIR = "beta/";
     public static String STS_JAR = "desktop-1.0.jar";
-    private static String MAC_STS_JAR = "SlayTheSpire.app/Contents/Resources/" + STS_JAR;
-    private static String STS_JAR2 = "SlayTheSpire.jar";
+    private static final String MAC_STS_JAR = "SlayTheSpire.app/Contents/Resources/" + STS_JAR;
+    private static final String STS_JAR2 = "SlayTheSpire.jar";
     public static String COREPATCHES_JAR = "/corepatches.jar";
     private static final String COREPATCHES_LWJGL3_JAR = "/corepatches-lwjgl3.jar";
     static String KOTLIN_JAR = "/kotlin.jar";
@@ -425,7 +425,7 @@ public class Loader
                 MODINFOS = Patcher.sideloadMods(tmpPatchingLoader, loader, pool, ALLMODINFOS, MODINFOS);
 
                 // Patch enums
-                System.out.printf("Patching enums...");
+                System.out.print("Patching enums...");
                 Patcher.patchEnums(tmpPatchingLoader, pool, Loader.class.getResource(Loader.COREPATCHES_JAR));
                 // Patch SpireEnums from mods
                 Patcher.patchEnums(tmpPatchingLoader, pool, MODINFOS);
@@ -452,7 +452,7 @@ public class Loader
                 POOL.childFirstLookup = true;
 
                 // Bust enums
-                System.out.printf("Busting enums...");
+                System.out.print("Busting enums...");
                 Patcher.bustEnums(loader, Loader.class.getResource(Loader.COREPATCHES_JAR));
                 // Bust SpireEnums from mods
                 Patcher.bustEnums(loader, MODINFOS);
@@ -468,14 +468,14 @@ public class Loader
                 }
                 // Output JAR if requested
                 if (Loader.OUT_JAR) {
-                    System.out.printf("Dumping JAR...");
+                    System.out.print("Dumping JAR...");
                     OutJar.dumpJar(pool, STS_PATCHED_JAR);
                     System.out.println("Done.");
                     return;
                 }
 
                 // Set Settings.isModded = true
-                System.out.printf("Setting isModded = true...");
+                System.out.print("Setting isModded = true...");
                 System.out.flush();
                 Class<?> Settings = loader.loadClass("com.megacrit.cardcrawl.core.Settings");
                 Field isModded = Settings.getDeclaredField("isModded");
@@ -487,7 +487,7 @@ public class Loader
                 isDev.set(null, false);
 
                 // Add ModTheSpire section to CardCrawlGame.VERSION_NUM
-                System.out.printf("Adding ModTheSpire to version...");
+                System.out.print("Adding ModTheSpire to version...");
                 System.out.flush();
                 Class<?> CardCrawlGame = loader.loadClass("com.megacrit.cardcrawl.core.CardCrawlGame");
                 Field VERSION_NUM = CardCrawlGame.getDeclaredField("VERSION_NUM");
@@ -768,11 +768,11 @@ public class Loader
         out.printf(" - Java version (%s)\n", System.getProperty("java.version"));
         out.printf(" - Slay the Spire (%s)", STS_VERSION);
         if (STS_BETA) {
-            out.printf(" BETA");
+            out.print(" BETA");
         }
-        out.printf("\n");
+        out.print("\n");
         out.printf(" - ModTheSpire (%s)\n", MTS_VERSION);
-        out.printf("Mod list:\n");
+        out.print("Mod list:\n");
         for (ModInfo info : MODINFOS) {
             out.printf(" - %s", info.getIDName());
             if (info.ModVersion != null) {
@@ -855,7 +855,7 @@ public class Loader
         System.out.println(file.exists() ? "Exists" : "Does not exist");
 
         if (file.exists()) {
-            System.out.printf("Type: ");
+            System.out.print("Type: ");
             if (file.isFile()) {
                 System.out.println("File");
             } else if (file.isDirectory()) {

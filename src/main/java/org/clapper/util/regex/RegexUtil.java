@@ -65,13 +65,12 @@ public class RegexUtil
         {
             if (hc == -1)
             {
-                StringBuffer buf = new StringBuffer();
 
-                buf.append (regex);
-                buf.append (String.valueOf (replaceAll));
-                buf.append (String.valueOf (flags));
+                String buf = regex +
+                    replaceAll +
+                    flags;
 
-                hc = buf.toString().hashCode();
+                hc = buf.hashCode();
             }
 
             return hc;
@@ -96,7 +95,7 @@ public class RegexUtil
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private LRUMap<Substitution, Pattern> compiledRegexps =
+    private final LRUMap<Substitution, Pattern> compiledRegexps =
         new LRUMap<Substitution, Pattern> (100);
 
     /*----------------------------------------------------------------------*\
@@ -261,7 +260,7 @@ public class RegexUtil
         if (fields.length == 4)
             getSubstitutionFlags(substitutionCommand, fields[3], sub);
 
-        Pattern pattern = (Pattern) compiledRegexps.get(sub);
+        Pattern pattern = compiledRegexps.get(sub);
         if (pattern == null)
         {
             try

@@ -87,11 +87,11 @@ public class LRUMap<K,V>
         {
             return new Iterator<Map.Entry<K,V>>()
             {
-                EntryIterator it = new EntryIterator();
+                final EntryIterator it = new EntryIterator();
 
                 public Map.Entry<K,V> next()
                 {
-                    return (Map.Entry<K,V>) it.next();
+                    return it.next();
                 }
 
                 public boolean hasNext()
@@ -338,7 +338,7 @@ public class LRUMap<K,V>
 
         public boolean equals (Object o)
         {
-            return LRULinkedListEntry.class.isInstance (o);
+            return o instanceof LRULinkedListEntry;
         }
 
         public int hashCode()
@@ -556,10 +556,10 @@ public class LRUMap<K,V>
     \*----------------------------------------------------------------------*/
 
     private int            maxCapacity;
-    private float          loadFactor;
-    private int            initialCapacity;
-    private EntryMap       hash;
-    private LRULinkedList  lruQueue;
+    private final float          loadFactor;
+    private final int            initialCapacity;
+    private final EntryMap       hash;
+    private final LRULinkedList  lruQueue;
     private ListenerMap    removalListeners = null;
 
     /*----------------------------------------------------------------------*\
@@ -679,13 +679,8 @@ public class LRUMap<K,V>
     public synchronized boolean
     removeRemovalListener (ObjectRemovalListener listener)
     {
-        boolean removed = false;
-
-        if ((removalListeners != null) &&
-            (removalListeners.remove(listener) != null))
-        {
-            removed = true;
-        }
+        boolean removed = (removalListeners != null) &&
+            (removalListeners.remove(listener) != null);
 
         return removed;
     }
@@ -767,7 +762,7 @@ public class LRUMap<K,V>
     public V get (Object key)
     {
         V                   value = null;
-        LRULinkedListEntry  entry  = (LRULinkedListEntry) hash.get (key);
+        LRULinkedListEntry  entry  = hash.get (key);
 
         if (entry != null)
         {
@@ -891,7 +886,7 @@ public class LRUMap<K,V>
     public V remove (Object key)
     {
         V                   value = null;
-        LRULinkedListEntry  entry = (LRULinkedListEntry) hash.remove (key);
+        LRULinkedListEntry  entry = hash.remove (key);
 
         if (entry != null)
         {
@@ -999,7 +994,7 @@ public class LRUMap<K,V>
             assert (oldTail != null);
 
             Object              key = oldTail.key;
-            LRULinkedListEntry  rem = (LRULinkedListEntry) hash.remove (key);
+            LRULinkedListEntry  rem = hash.remove (key);
 
             assert (rem != null);
             assert (rem.key == key);
@@ -1086,7 +1081,7 @@ public class LRUMap<K,V>
         // remove the tail entries.
 
         V                   oldValue = null;
-        LRULinkedListEntry  entry    = (LRULinkedListEntry) hash.get (key);
+        LRULinkedListEntry  entry    = hash.get (key);
 
         if (entry == null)
         {

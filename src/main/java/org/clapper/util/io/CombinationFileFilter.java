@@ -56,7 +56,7 @@ public class CombinationFileFilter implements FileFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private List<FileFilter>       filters = new LinkedList<FileFilter>();
+    private final List<FileFilter>       filters = new LinkedList<FileFilter>();
     private CombinationFilterMode  mode    = AND_FILTERS;
 
     /*----------------------------------------------------------------------*\

@@ -30,7 +30,7 @@ public class MultiIterator<T> implements Iterator<T>, Iterable<T>
     /**
      * The underlying objects being iterated over, stored in a Collection
      */
-    private Collection<Iterator<T>> aggregation = new ArrayList<Iterator<T>>();
+    private final Collection<Iterator<T>> aggregation = new ArrayList<Iterator<T>>();
 
     /**
      * The iterator for the list of aggregation
@@ -63,7 +63,7 @@ public class MultiIterator<T> implements Iterator<T>, Iterable<T>
      *
      * @see #addCollection(Collection)
      */
-    public MultiIterator (Collection<T> array[])
+    public MultiIterator (Collection<T>[] array)
     {
         for (int i = 0; i < array.length; i++)
             aggregation.add (array[i].iterator());

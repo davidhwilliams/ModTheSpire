@@ -179,7 +179,7 @@ public class Logger
     /**
      * The list of existing <tt>Logger</tt> objects.
      */
-    private static Collection<Logger> loggers = new ArrayList<Logger>();
+    private static final Collection<Logger> loggers = new ArrayList<Logger>();
 
     /**
      * Whether or not logging is enabled.
@@ -480,8 +480,7 @@ public class Logger
      */
     public boolean isDebugEnabled()
     {
-        return (realLogger == null) ? false
-                                    : realLogger.isDebugEnabled();
+        return realLogger != null && realLogger.isDebugEnabled();
     }
 
     /**
@@ -492,8 +491,7 @@ public class Logger
      */
     public boolean isErrorEnabled()
     {
-        return (realLogger == null) ? false
-                                    : realLogger.isErrorEnabled();
+        return realLogger != null && realLogger.isErrorEnabled();
     }
 
     /**
@@ -504,8 +502,7 @@ public class Logger
      */
     public boolean isFatalEnabled()
     {
-        return (realLogger == null) ? false
-                                    : realLogger.isFatalEnabled();
+        return realLogger != null && realLogger.isFatalEnabled();
     }
 
     /**
@@ -516,8 +513,7 @@ public class Logger
      */
     public boolean isInfoEnabled()
     {
-        return (realLogger == null) ? false
-                                    : realLogger.isInfoEnabled();
+        return realLogger != null && realLogger.isInfoEnabled();
     }
 
     /**
@@ -528,8 +524,7 @@ public class Logger
      */
     public boolean isTraceEnabled()
     {
-        return (realLogger == null) ? false
-                                    : realLogger.isTraceEnabled();
+        return realLogger != null && realLogger.isTraceEnabled();
     }
 
     /**
@@ -540,8 +535,7 @@ public class Logger
      */
     public boolean isWarningEnabled()
     {
-        return (realLogger == null) ? false
-                                    : realLogger.isWarnEnabled();
+        return realLogger != null && realLogger.isWarnEnabled();
     }
 
     /*----------------------------------------------------------------------*\

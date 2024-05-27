@@ -46,7 +46,7 @@ public class MainMenuModList
         };
     }
 
-    private static Pattern re = Pattern.compile("(\\[.+] \\(.+\\)(?:v\\d)*) \\[(ModTheSpire .+)]( BETA)?");
+    private static final Pattern re = Pattern.compile("(\\[.+] \\(.+\\)(?:v\\d)*) \\[(ModTheSpire .+)]( BETA)?");
 
     public static String alterVersion(String version)
     {

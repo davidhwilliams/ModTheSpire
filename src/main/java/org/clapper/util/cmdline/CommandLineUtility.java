@@ -918,7 +918,7 @@ public abstract class CommandLineUtility
      * @see #processPostOptionCommandLine
      * @see #parseCustomOption
      */
-    private void parseParams (String args[])
+    private void parseParams (String[] args)
         throws CommandLineUsageException
     {
         ParameterHandler handler = new ParameterHandler()

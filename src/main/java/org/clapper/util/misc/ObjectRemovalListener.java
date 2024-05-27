@@ -22,5 +22,5 @@ public interface ObjectRemovalListener extends EventListener
      *
      * @param event the <tt>ObjectRemovalEvent</tt> event
      */
-    public void objectRemoved (ObjectRemovalEvent event);
+    void objectRemoved(ObjectRemovalEvent event);
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
     method=SpirePatch.CONSTRUCTOR
 )
 public class CreditsModList {
-    private static String[] MTS_AUTHORS = new String[] {
+    private static final String[] MTS_AUTHORS = new String[] {
             "kiooeht",
             "t-larson",
             "test447"

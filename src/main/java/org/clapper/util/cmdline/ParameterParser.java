@@ -392,9 +392,7 @@ public final class ParameterParser
             {
                 usageLine.append(' ');
 
-                boolean optional = true;
-                if (usageInfo.parameterIsRequired(strings[i]))
-                    optional = false;
+                boolean optional = !usageInfo.parameterIsRequired(strings[i]);
 
                 if (optional)
                     usageLine.append('[');

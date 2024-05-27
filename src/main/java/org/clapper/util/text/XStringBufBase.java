@@ -68,7 +68,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
      */
     public abstract void getChars (int   srcBegin,
                                    int   srcEnd,
-                                   char  dst[],
+                                   char[] dst,
                                    int   dstBegin)
         throws IndexOutOfBoundsException;
 
@@ -140,7 +140,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
      * @param len    The number of characters to insert
      */
     protected abstract void insertCharacters (int  index,
-                                              char chars[],
+                                              char[] chars,
                                               int  offset,
                                               int  len);
 
@@ -225,7 +225,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
      *
      * @return a reference to this object
      */
-    public XStringBufBase append (char chars[])
+    public XStringBufBase append (char[] chars)
     {
         for (int i = 0; i < chars.length; i++)
             append (chars[i]);
@@ -244,7 +244,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
      *
      * @return a reference to this object
      */
-    public XStringBufBase append (char chars[], int offset, int len)
+    public XStringBufBase append (char[] chars, int offset, int len)
     {
         Appendable buf = getBufferAsAppendable();
 
@@ -587,7 +587,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
         throws IndexOutOfBoundsException,
                IOException
     {
-        char           chars[] = toString().toCharArray();
+        char[] chars = toString().toCharArray();
         int            i       = 0;
         StringBuilder  scratch = new StringBuilder();
 
@@ -661,7 +661,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
     public void decodeMetacharacters (int start, int end)
         throws StringIndexOutOfBoundsException
     {
-        char           chars[] = toString().toCharArray();
+        char[] chars = toString().toCharArray();
         int            i       = 0;
         StringBuilder  newBuf  = new StringBuilder();
 
@@ -854,7 +854,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
      *
      * @return this object
      */
-    public XStringBufBase insert (int index, char chars[])
+    public XStringBufBase insert (int index, char[] chars)
     {
         insertCharacters (index, chars, 0, chars.length);
         return this;
@@ -873,7 +873,7 @@ public abstract class XStringBufBase implements CharSequence, Appendable
      * @return this object
      */
     public XStringBufBase insert (int  index,
-                                  char chars[],
+                                  char[] chars,
                                   int  offset,
                                   int  len)
     {

@@ -24,7 +24,7 @@ public class NotClassFilter implements ClassFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private ClassFilter filter;
+    private final ClassFilter filter;
 
     /*----------------------------------------------------------------------*\
                             Constructor

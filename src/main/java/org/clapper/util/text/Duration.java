@@ -44,7 +44,7 @@ public final class Duration
                              Private Classes
     \*----------------------------------------------------------------------*/
 
-    private static enum DurationType
+    private enum DurationType
     {
         MILLISECOND,
         SECOND,
@@ -52,7 +52,7 @@ public final class Duration
         HOUR,
         DAY,
         WEEK
-    };
+    }
 
     private static class DurationForFormat
     {
@@ -64,7 +64,7 @@ public final class Duration
             this.singular = singular;
             this.plural   = plural;
         }
-    };
+    }
 
     /*----------------------------------------------------------------------*\
                              Private Constants
@@ -396,7 +396,7 @@ public final class Duration
         {
             String duration = (count == 1) ? tokens.singular : tokens.plural;
             buf.append(separator);
-            buf.append(String.valueOf(count));
+            buf.append(count);
             buf.append(" ");
             buf.append(duration);
         }

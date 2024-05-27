@@ -20,8 +20,8 @@ public class ModPanel extends JPanel
     public ModInfo info;
     public File modFile;
     public JCheckBox checkBox;
-    private InfoPanel infoPanel;
-    private JLabel update = new JLabel();
+    private final InfoPanel infoPanel;
+    private final JLabel update = new JLabel();
     private boolean isFilteredOut = false;
     
     private static boolean dependenciesChecked(ModInfo info, JModPanelCheckBoxList parent) {
@@ -39,6 +39,7 @@ public class ModPanel extends JPanel
         for (int i = 0; i < checked.length; i++) {
             if (!checked[i]) {
                 allChecked = false;
+                break;
             }
         }
 
@@ -123,11 +124,10 @@ public class ModPanel extends JPanel
             checkBox.setBackground(lightOrange);
             infoPanel.setBackground(lightOrange);
             String[] missingDependencies = missingDependencies(info, parent);
-            StringBuilder tooltip = new StringBuilder();
-            tooltip.append("Missing dependencies: [");
-            tooltip.append(String.join(", ", missingDependencies));
-            tooltip.append("]");
-            info.statusMsg = tooltip.toString();
+            String tooltip = "Missing dependencies: [" +
+                String.join(", ", missingDependencies) +
+                "]";
+            info.statusMsg = tooltip;
         }
         if (Loader.STS_VERSION != null && info.STS_Version != null && !Loader.STS_VERSION.equals(info.STS_Version)) {
             //checkBox.setBackground(lightYellow);

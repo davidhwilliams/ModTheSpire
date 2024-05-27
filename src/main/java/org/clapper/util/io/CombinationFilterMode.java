@@ -20,4 +20,4 @@ public enum CombinationFilterMode
      * contained filters.
      */
     OR_FILTERS
-};
+}

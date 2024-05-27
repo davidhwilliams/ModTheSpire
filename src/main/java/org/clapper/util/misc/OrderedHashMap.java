@@ -41,7 +41,7 @@ public class OrderedHashMap<K,V>
                              Private Variables
     \*----------------------------------------------------------------------*/
 
-    private LinkedList<K> keysInOrder = new LinkedList<K>();
+    private final LinkedList<K> keysInOrder = new LinkedList<K>();
 
     /*----------------------------------------------------------------------*\
                                 Constructors

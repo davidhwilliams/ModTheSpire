@@ -1,9 +1,6 @@
 package org.clapper.util.text;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * Static class containing miscellaneous text utility methods.
@@ -273,7 +270,7 @@ public final class TextUtil
                             Collection<String> collection,
                             boolean            preserveEmptyFields)
     {
-        return split(s, (String) null, collection, preserveEmptyFields);
+        return split(s, null, collection, preserveEmptyFields);
     }
 
     /**
@@ -633,8 +630,7 @@ public final class TextUtil
     {
         String[] strs = split(s, delimSet, preserveEmptyFields);
 
-        for (int i = 0; i < strs.length; i++)
-            collection.add(strs[i]);
+        Collections.addAll(collection, strs);
 
         return strs.length;
     }
@@ -1726,7 +1722,7 @@ public final class TextUtil
      */
     public static String charToUnicodeEscape(char c, StringBuilder buf)
     {
-        String hex = Integer.toHexString((int) c);
+        String hex = Integer.toHexString(c);
 
         buf.append("\\u");
         for (int i = hex.length(); i < 4; i++)

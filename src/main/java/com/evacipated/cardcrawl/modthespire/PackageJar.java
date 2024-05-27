@@ -350,136 +350,132 @@ class PackageJar
 
         File outFile = new File(jarPath);
 
+        Manifest manifest = new Manifest();
+        Attributes attributes = manifest.getMainAttributes();
+        attributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        attributes.put(Attributes.Name.MAIN_CLASS, PrepackagedLauncher.class.getName());
+        attributes.put(Attributes.Name.CLASS_PATH, createClassPath());
+        attributes.put(new Attributes.Name("Created-By"), "ModTheSpire");
+        JarOutputStream outJar = new JarOutputStream(new FileOutputStream(outFile), manifest);
+        Entries entries = new Entries();
+
         try {
-            Manifest manifest = new Manifest();
-            Attributes attributes = manifest.getMainAttributes();
-            attributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
-            attributes.put(Attributes.Name.MAIN_CLASS, PrepackagedLauncher.class.getName());
-            attributes.put(Attributes.Name.CLASS_PATH, createClassPath());
-            attributes.put(new Attributes.Name("Created-By"), "ModTheSpire");
-            JarOutputStream outJar = new JarOutputStream(new FileOutputStream(outFile), manifest);
-            Entries entries = new Entries();
+            assert ctPrePackagedLauncher != null;
+            entries.add(new Entry(ctPrePackagedLauncher.getName().replaceAll("\\.", "/") + ".class", ctPrePackagedLauncher.toBytecode(), null));
+        } catch (CannotCompileException e) {
+            e.printStackTrace();
+        }
 
+        System.out.println("  Finding entries...");
+        // Find ModTheSpire
+        try {
+            //exceptions.add("assets/");
+            exceptions.add("com/codedisaster/steamworks");
+            exceptions.add("com/google/gson");
+            exceptions.add("com/megacrit/cardcrawl/desktop/DesktopLauncher");
+            findMTSEntries(entries, new FileInputStream(new File(Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI())));
+            exceptions.clear();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        // Find kotlin
+        findKotlinEntries(entries, Loader.class.getResourceAsStream(Loader.KOTLIN_JAR));
+        // Find out-jar
+        Set<CtClass> ctClasses = pool.getOutJarClasses();
+        for (CtClass ctClass : ctClasses) {
             try {
-                assert ctPrePackagedLauncher != null;
-                entries.add(new Entry(ctPrePackagedLauncher.getName().replaceAll("\\.", "/") + ".class", ctPrePackagedLauncher.toBytecode(), null));
-            } catch (CannotCompileException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("  Finding entries...");
-            // Find ModTheSpire
-            try {
-                //exceptions.add("assets/");
-                exceptions.add("com/codedisaster/steamworks");
-                exceptions.add("com/google/gson");
-                exceptions.add("com/megacrit/cardcrawl/desktop/DesktopLauncher");
-                findMTSEntries(entries, new FileInputStream(new File(Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI())));
-                exceptions.clear();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            // Find kotlin
-            findKotlinEntries(entries, Loader.class.getResourceAsStream(Loader.KOTLIN_JAR));
-            // Find out-jar
-            Set<CtClass> ctClasses = pool.getOutJarClasses();
-            for (CtClass ctClass : ctClasses) {
+                URL locationURL = null;
                 try {
-                    URL locationURL = null;
-                    try {
-                        String url = ctClass.getURL().getFile();
-                        int i = url.lastIndexOf('!');
-                        if (i >= 0) {
-                            url = url.substring(0, i);
-                        }
-                        if (url.endsWith(".jar")) {
-                            locationURL = new URL(url);
-                        }
-                    } catch (NotFoundException ignored) {
+                    String url = ctClass.getURL().getFile();
+                    int i = url.lastIndexOf('!');
+                    if (i >= 0) {
+                        url = url.substring(0, i);
                     }
-
-                    String className = ctClass.getName();
-                    byte[] b = ctClass.toBytecode();
-                    String classPath = className.replaceAll("\\.", "/") + ".class";
-                    entries.add(new Entry(classPath, b, locationURL));
-                } catch (IOException | CannotCompileException e) {
-                    // eat it - just means this isn't a file we've loaded
+                    if (url.endsWith(".jar")) {
+                        locationURL = new URL(url);
+                    }
+                } catch (NotFoundException ignored) {
                 }
-            }
-            // Find core patches
-            findCorePatchEntries(entries, Loader.class.getResourceAsStream(Loader.COREPATCHES_JAR));
-            // Find mods
-            for (ModInfo modInfo : Loader.MODINFOS) {
-                try {
-                    findModEntries(entries, new File(modInfo.jarURL.toURI()), modInfo.ID);
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
-            // Find base game
-            findModEntries(entries, new File(Loader.STS_JAR), null);
 
-            System.out.println("  " + entries.size() + " entries");
-
-            // Copy ModTheSpire
-            System.out.println("  Copying ModTheSpire entries...");
+                String className = ctClass.getName();
+                byte[] b = ctClass.toBytecode();
+                String classPath = className.replaceAll("\\.", "/") + ".class";
+                entries.add(new Entry(classPath, b, locationURL));
+            } catch (IOException | CannotCompileException e) {
+                // eat it - just means this isn't a file we've loaded
+            }
+        }
+        // Find core patches
+        findCorePatchEntries(entries, Loader.class.getResourceAsStream(Loader.COREPATCHES_JAR));
+        // Find mods
+        for (ModInfo modInfo : Loader.MODINFOS) {
             try {
-                //exceptions.add("assets/");
-                exceptions.add("com/codedisaster/steamworks");
-                exceptions.add("com/google/gson");
-                exceptions.add("com/megacrit/cardcrawl/desktop/DesktopLauncher");
-                InputStream is = new FileInputStream(new File(Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
-                copyJarContents(outJar, entries, is, null, Entry.Type.MTS);
-                exceptions.clear();
+                findModEntries(entries, new File(modInfo.jarURL.toURI()), modInfo.ID);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
-            // Copy kotlin
-            System.out.println("  Copying kotlin entries...");
-            copyJarContents(outJar, entries, Loader.class.getResourceAsStream(Loader.KOTLIN_JAR), null, Entry.Type.KOTLIN);
-            // Copy base game out-jar
-            System.out.println("  Copying base game out-jar entries...");
+        }
+        // Find base game
+        findModEntries(entries, new File(Loader.STS_JAR), null);
+
+        System.out.println("  " + entries.size() + " entries");
+
+        // Copy ModTheSpire
+        System.out.println("  Copying ModTheSpire entries...");
+        try {
+            //exceptions.add("assets/");
+            exceptions.add("com/codedisaster/steamworks");
+            exceptions.add("com/google/gson");
+            exceptions.add("com/megacrit/cardcrawl/desktop/DesktopLauncher");
+            InputStream is = new FileInputStream(new File(Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
+            copyJarContents(outJar, entries, is, null, Entry.Type.MTS);
+            exceptions.clear();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        // Copy kotlin
+        System.out.println("  Copying kotlin entries...");
+        copyJarContents(outJar, entries, Loader.class.getResourceAsStream(Loader.KOTLIN_JAR), null, Entry.Type.KOTLIN);
+        // Copy base game out-jar
+        System.out.println("  Copying base game out-jar entries...");
+        for (Entry entry : entries.getOutJarEntries()) {
+            if (entry.locationURL == null) {
+                outJar.putNextEntry(new JarEntry(entry.path));
+                outJar.write(entry.b);
+            }
+        }
+        // Copy core patches
+        System.out.println("  Copying core patch entries...");
+        copyJarContents(outJar, entries, Loader.class.getResourceAsStream(Loader.COREPATCHES_JAR), null, Entry.Type.COREPATCH);
+        // Copy base game
+        System.out.println("  Copying base game entries...");
+        copyJarContents(outJar, entries, new File(Loader.STS_JAR), null);
+
+        outJar.close();
+
+        // Do mod jars
+        new File("package").mkdirs();
+        for (ModInfo modInfo : Loader.MODINFOS) {
+            String filename = Paths.get(modInfo.jarURL.toURI()).getFileName().toString();
+            outJar = new JarOutputStream(new FileOutputStream(Paths.get("package", createModdedJarName(filename)).toFile()));
+            System.out.println("  Copying " + modInfo.ID + "...");
+            // Copy mod out-jar
+            System.out.println("    Copying mod out-jar entries...");
             for (Entry entry : entries.getOutJarEntries()) {
-                if (entry.locationURL == null) {
+                if (entry.locationURL != null && entry.locationURL.equals(modInfo.jarURL)) {
                     outJar.putNextEntry(new JarEntry(entry.path));
                     outJar.write(entry.b);
                 }
             }
-            // Copy core patches
-            System.out.println("  Copying core patch entries...");
-            copyJarContents(outJar, entries, Loader.class.getResourceAsStream(Loader.COREPATCHES_JAR), null, Entry.Type.COREPATCH);
-            // Copy base game
-            System.out.println("  Copying base game entries...");
-            copyJarContents(outJar, entries, new File(Loader.STS_JAR), null);
+            // Copy mods
+            System.out.println("    Copying mod entries...");
+            try {
+                copyJarContents(outJar, entries, new File(modInfo.jarURL.toURI()), modInfo.ID);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
 
             outJar.close();
-
-            // Do mod jars
-            new File("package").mkdirs();
-            for (ModInfo modInfo : Loader.MODINFOS) {
-                String filename = Paths.get(modInfo.jarURL.toURI()).getFileName().toString();
-                outJar = new JarOutputStream(new FileOutputStream(Paths.get("package", createModdedJarName(filename)).toFile()));
-                System.out.println("  Copying " + modInfo.ID + "...");
-                // Copy mod out-jar
-                System.out.println("    Copying mod out-jar entries...");
-                for (Entry entry : entries.getOutJarEntries()) {
-                    if (entry.locationURL != null && entry.locationURL.equals(modInfo.jarURL)) {
-                        outJar.putNextEntry(new JarEntry(entry.path));
-                        outJar.write(entry.b);
-                    }
-                }
-                // Copy mods
-                System.out.println("    Copying mod entries...");
-                try {
-                    copyJarContents(outJar, entries, new File(modInfo.jarURL.toURI()), modInfo.ID);
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-
-                outJar.close();
-            }
-        } finally {
-            // NOP?
         }
     }
 

@@ -24,7 +24,7 @@ public class ClassLoaderBuilder
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private Collection<URL> urlList = new LinkedHashSet<URL>();
+    private final Collection<URL> urlList = new LinkedHashSet<URL>();
 
     /**
      * For logging

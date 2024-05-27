@@ -25,7 +25,7 @@ public class NotFilenameFilter implements FilenameFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private FilenameFilter filter;
+    private final FilenameFilter filter;
 
     /*----------------------------------------------------------------------*\
                             Constructor

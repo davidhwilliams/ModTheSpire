@@ -92,9 +92,9 @@ public interface VariableSubstituter
      * @see #substitute(String,VariableDereferencer,VariableNameChecker,Object)
      * @see VariableDereferencer#getVariableValue(String,Object)
      */
-    public String substitute (String               s,
-                              VariableDereferencer deref,
-                              Object               context)
+    String substitute(String s,
+                      VariableDereferencer deref,
+                      Object context)
         throws VariableSubstitutionException;
 
     /**
@@ -139,10 +139,10 @@ public interface VariableSubstituter
      * @see #substitute(String,VariableDereferencer,Object)
      * @see VariableDereferencer#getVariableValue(String,Object)
      */
-    public String substitute (String               s,
-                              VariableDereferencer deref,
-                              VariableNameChecker  nameChecker,
-                              Object               context)
+    String substitute(String s,
+                      VariableDereferencer deref,
+                      VariableNameChecker nameChecker,
+                      Object context)
         throws VariableSubstitutionException;
 
     /**
@@ -156,7 +156,7 @@ public interface VariableSubstituter
      *         is enabled, <tt>false</tt> if it is disabled.
      * @see #setAbortOnUndefinedVariable
      */
-    public boolean getAbortOnUndefinedVariable();
+    boolean getAbortOnUndefinedVariable();
 
     /**
      * Set or clear the flag that controls whether the <tt>substitute()</tt>
@@ -169,7 +169,7 @@ public interface VariableSubstituter
      *                flag, <tt>false</tt> to disable it.
      * @see #getAbortOnUndefinedVariable
      */
-    public void setAbortOnUndefinedVariable(boolean enable);
+    void setAbortOnUndefinedVariable(boolean enable);
 
     /**
      * Get the value of the flag that controls whether the
@@ -185,7 +185,7 @@ public interface VariableSubstituter
      *
      * @see #setAbortOnUndefinedVariable
      */
-    public boolean getAbortOnSyntaxError();
+    boolean getAbortOnSyntaxError();
 
     /**
      * Set or clear the flag that controls whether the
@@ -201,5 +201,5 @@ public interface VariableSubstituter
      *
      * @see #getAbortOnUndefinedVariable
      */
-    public void setAbortOnSyntaxError(boolean enable);
+    void setAbortOnSyntaxError(boolean enable);
 }

@@ -19,7 +19,7 @@ public class DownloadAndRestarter
     private static String fileNameFromURL(URL url)
     {
         String uri = url.toString();
-        return uri.substring(uri.lastIndexOf('/') + 1, uri.length());
+        return uri.substring(uri.lastIndexOf('/') + 1);
     }
 
     private static void restartApplication() throws URISyntaxException, IOException

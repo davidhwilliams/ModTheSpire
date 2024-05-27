@@ -38,13 +38,13 @@ public class ModsScreen
     private float targetY = scrollY;
     private float scrollLowerBound;
     private float scrollUpperBound;
-    private MenuCancelButton button = new MenuCancelButton();
+    private final MenuCancelButton button = new MenuCancelButton();
     private boolean grabbedScreen = false;
     private float grabStartY = 0;
 
-    private ArrayList<Hitbox> hitboxes = new ArrayList<>();
+    private final ArrayList<Hitbox> hitboxes = new ArrayList<>();
     private int selectedMod = -1;
-    private Hitbox configHb;
+    private final Hitbox configHb;
 
     static Map<URL, Object> baseModBadges;
     private static boolean justClosedModPanel = false;

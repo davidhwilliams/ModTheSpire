@@ -10,7 +10,7 @@ import javassist.bytecode.MethodInfo;
 
 class ParamInfo
 {
-    private CtBehavior ctBehavior;
+    private final CtBehavior ctBehavior;
     private int position;
     private String name;
     private boolean isPrivate = false;

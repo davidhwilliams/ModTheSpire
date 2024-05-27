@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 public class RawPatchInfo extends PatchInfo
 {
-    private Method method;
+    private final Method method;
 
     public RawPatchInfo(CtBehavior ctMethodToPatch, Method method)
     {

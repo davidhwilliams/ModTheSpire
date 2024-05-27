@@ -22,5 +22,5 @@ public interface ClassFilter
      * @return <tt>true</tt> if and only if the name should be included
      *         in the list; <tt>false</tt> otherwise
      */
-    public boolean accept (ClassInfo classInfo, ClassFinder classFinder);
+    boolean accept(ClassInfo classInfo, ClassFinder classFinder);
 }

@@ -33,7 +33,7 @@ public class MultipleMapVariableDereferencer implements VariableDereferencer
                              Private Instance Data
     \*----------------------------------------------------------------------*/
 
-    private Collection<Map<String,String>> mapList =
+    private final Collection<Map<String,String>> mapList =
         new ArrayList<Map<String,String>>();
 
     /*----------------------------------------------------------------------*\

@@ -25,8 +25,8 @@ class ClassInfoClassVisitor extends ClassVisitor
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private Map<String,ClassInfo> foundClasses;
-    private File                  location;
+    private final Map<String,ClassInfo> foundClasses;
+    private final File                  location;
     private ClassInfo             currentClass = null;
 
     /*----------------------------------------------------------------------*\

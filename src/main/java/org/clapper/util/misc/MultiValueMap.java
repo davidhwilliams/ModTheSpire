@@ -41,7 +41,7 @@ public class MultiValueMap<K,V> extends AbstractMap<K,V> implements Cloneable
          *
          * @return a <tt>Collection</tt> object
          */
-        public Collection<V> newValuesCollection();
+        Collection<V> newValuesCollection();
     }
 
     /*----------------------------------------------------------------------*\
@@ -50,8 +50,8 @@ public class MultiValueMap<K,V> extends AbstractMap<K,V> implements Cloneable
 
     private class MultiValueMapEntry implements Map.Entry<K,V>
     {
-        private K key;
-        private V value;
+        private final K key;
+        private final V value;
 
         MultiValueMapEntry(K key, V value)
         {
@@ -98,7 +98,7 @@ public class MultiValueMap<K,V> extends AbstractMap<K,V> implements Cloneable
     private class MultiValueMapEntryIterator
         implements Iterator<Map.Entry<K,V>>
     {
-        private Iterator<K> keys = MultiValueMap.this.keySet().iterator();
+        private final Iterator<K> keys = MultiValueMap.this.keySet().iterator();
         private Iterator<V> curValues = null;
         private MultiValueMapEntry lastReturned = null;
 
@@ -609,7 +609,7 @@ public class MultiValueMap<K,V> extends AbstractMap<K,V> implements Cloneable
      */
     public V put(K key, V value)
     {
-        Collection<V> values = (Collection<V>) map.get(key);
+        Collection<V> values = map.get(key);
 
         if (values == null)
         {
@@ -892,7 +892,7 @@ public class MultiValueMap<K,V> extends AbstractMap<K,V> implements Cloneable
         if (value == null)
             value = "\u0002";
 
-        return (new String (key.toString() + "\u0001" + value.toString()))
+        return (key.toString() + "\u0001" + value)
                .hashCode();
     }
 

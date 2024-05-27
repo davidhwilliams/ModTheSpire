@@ -2,8 +2,8 @@ package com.evacipated.cardcrawl.modthespire;
 
 public class DuplicateModIDException extends Exception
 {
-    private ModInfo info1;
-    private ModInfo info2;
+    private final ModInfo info1;
+    private final ModInfo info2;
 
     public DuplicateModIDException(ModInfo info1, ModInfo info2)
     {

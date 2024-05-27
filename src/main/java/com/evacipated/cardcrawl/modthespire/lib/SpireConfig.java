@@ -6,9 +6,9 @@ import java.util.Properties;
 public class SpireConfig
 {
     private final static String EXTENSION = "properties";
-    private Properties properties;
-    private File file;
-    private String filePath;
+    private final Properties properties;
+    private final File file;
+    private final String filePath;
 
     public static String makeFilePath(String modName, String fileName)
     {

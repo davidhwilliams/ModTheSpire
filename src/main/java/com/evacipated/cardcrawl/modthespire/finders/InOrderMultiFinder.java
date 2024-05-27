@@ -10,12 +10,12 @@ import javassist.expr.Expr;
 
 public class InOrderMultiFinder extends MatchFinderExprEditor {
 
-    private List<Integer> locations;
+    private final List<Integer> locations;
     private boolean foundLocation;
     private int foundMatchesIndex;
 
-    private Matcher finalMatch;
-    private List<Matcher> expectedMatches;
+    private final Matcher finalMatch;
+    private final List<Matcher> expectedMatches;
 
     public InOrderMultiFinder(List<Matcher> expectedMatches, Matcher finalMatch) {
         super();

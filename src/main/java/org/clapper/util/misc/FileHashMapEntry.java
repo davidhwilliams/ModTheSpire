@@ -101,7 +101,7 @@ class FileHashMapEntry<K>
      */
     public int compareTo (FileHashMapEntry o)
     {
-        FileHashMapEntry  other    = (FileHashMapEntry) o;
+        FileHashMapEntry  other    = o;
         Long              thisPos  = new Long (this.filePosition);
         Long              otherPos = new Long (other.filePosition);
 

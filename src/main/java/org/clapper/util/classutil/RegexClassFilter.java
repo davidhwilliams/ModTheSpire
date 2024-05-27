@@ -28,7 +28,7 @@ public class RegexClassFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private Pattern pattern;
+    private final Pattern pattern;
 
     /*----------------------------------------------------------------------*\
                             Constructor

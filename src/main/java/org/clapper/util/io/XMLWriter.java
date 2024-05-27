@@ -20,7 +20,7 @@ public class XMLWriter extends Writer
     /**
      * The actual writer, wrapped in a PrintWriter
      */
-    private PrintWriter out;
+    private final PrintWriter out;
 
     /**
      * The previously written character, for keeping track of state

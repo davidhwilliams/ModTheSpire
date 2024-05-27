@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 
 public class InstrumentPatchInfo extends PatchInfo
 {
-    private Method method;
+    private final Method method;
 
     public InstrumentPatchInfo(CtBehavior ctMethodToPatch, Method method)
     {

@@ -15,7 +15,7 @@ import javassist.expr.NewExpr;
 
 public abstract class Matcher {
 
-    private Expectation expectedType;
+    private final Expectation expectedType;
 
     public Matcher(Expectation expectedType) {
         this.expectedType = expectedType;
@@ -29,7 +29,7 @@ public abstract class Matcher {
 
     public static class TypeCastMatcher extends Matcher {
 
-        private String typeName;
+        private final String typeName;
 
         public TypeCastMatcher(String typeName) {
             super(Expectation.TYPE_CAST);
@@ -55,8 +55,9 @@ public abstract class Matcher {
 
     public static class ConstructorCallMatcher extends Matcher {
 
-        private String className, methodName;
-        private boolean checkMethodName;
+        private final String className;
+        private String methodName;
+        private final boolean checkMethodName;
 
         public ConstructorCallMatcher(Class<?> clazz) {
             this(clazz.getName());
@@ -92,7 +93,8 @@ public abstract class Matcher {
 
     public static class FieldAccessMatcher extends Matcher {
 
-        private String className, fieldName;
+        private final String className;
+        private final String fieldName;
 
         public FieldAccessMatcher(Class<?> clazz, String fieldName) {
             this(clazz.getName(), fieldName);
@@ -116,8 +118,8 @@ public abstract class Matcher {
 
     public static class CatchClauseMatcher extends Matcher {
 
-        private String exceptionType;
-        private boolean isFinallyClause;
+        private final String exceptionType;
+        private final boolean isFinallyClause;
 
         public CatchClauseMatcher(Class<?> exceptionType, boolean isFinallyClause) {
             this(exceptionType.getName(), isFinallyClause);
@@ -149,7 +151,7 @@ public abstract class Matcher {
 
     public static class InstanceOfMatcher extends Matcher {
 
-        private String comparedToType;
+        private final String comparedToType;
 
         public InstanceOfMatcher(Class<?> clazz) {
             this(clazz.getName());
@@ -179,7 +181,8 @@ public abstract class Matcher {
 
     public static class MethodCallMatcher extends Matcher {
 
-        private String className, methodName;
+        private final String className;
+        private final String methodName;
 
         public MethodCallMatcher(Class<?> clazz, String methodName) {
             this(clazz.getName(), methodName);
@@ -203,7 +206,7 @@ public abstract class Matcher {
 
     public static class NewArrayMatcher extends Matcher {
 
-        private String className;
+        private final String className;
 
         public NewArrayMatcher(Class<?> clazz) {
             this(clazz.getName());
@@ -233,7 +236,7 @@ public abstract class Matcher {
 
     public static class NewExprMatcher extends Matcher {
 
-        private String className;
+        private final String className;
 
         public NewExprMatcher(Class<?> clazz) {
             this(clazz.getName());

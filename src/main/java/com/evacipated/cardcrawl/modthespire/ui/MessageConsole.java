@@ -20,9 +20,9 @@ import javax.swing.text.*;
  */
 public class MessageConsole
 {
-    private JTextComponent textComponent;
-    private Document document;
-    private boolean isAppend;
+    private final JTextComponent textComponent;
+    private final Document document;
+    private final boolean isAppend;
     private DocumentListener limitLinesListener;
 
     public MessageConsole(JTextComponent textComponent)
@@ -113,8 +113,8 @@ public class MessageConsole
     {
         private final String EOL = System.getProperty("line.separator");
         private SimpleAttributeSet attributes;
-        private PrintStream printStream;
-        private StringBuffer buffer = new StringBuffer(80);
+        private final PrintStream printStream;
+        private final StringBuffer buffer = new StringBuffer(80);
         private boolean isFirstLine;
 
         /*

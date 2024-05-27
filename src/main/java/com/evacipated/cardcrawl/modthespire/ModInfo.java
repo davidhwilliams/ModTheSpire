@@ -73,7 +73,7 @@ public class ModInfo implements Serializable
                 loader.close();
             }
         } catch (Exception e) {
-            System.out.println("Exception during loader.close(), URLClassLoader may be leaked. " + e.toString());
+            System.out.println("Exception during loader.close(), URLClassLoader may be leaked. " + e);
         }
     }
 

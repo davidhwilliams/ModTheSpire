@@ -13,8 +13,8 @@ public class InOrderFinder extends MatchFinderExprEditor {
     private boolean foundLocation;
     private int foundMatchesIndex;
 
-    private Matcher finalMatch;
-    private List<Matcher> expectedMatches;
+    private final Matcher finalMatch;
+    private final List<Matcher> expectedMatches;
 
     public InOrderFinder(List<Matcher> expectedMatches, Matcher finalMatch) {
         super();

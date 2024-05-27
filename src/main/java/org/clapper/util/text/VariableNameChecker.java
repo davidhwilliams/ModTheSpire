@@ -29,5 +29,5 @@ public interface VariableNameChecker
      *
      * @see VariableSubstituter#substitute
      */
-    public boolean legalVariableCharacter (char c);
+    boolean legalVariableCharacter(char c);
 }

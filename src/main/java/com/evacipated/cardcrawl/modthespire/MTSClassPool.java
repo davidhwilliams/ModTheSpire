@@ -13,7 +13,7 @@ import java.util.Set;
 public class MTSClassPool extends ClassPool
 {
     private ClassLoader classLoader;
-    private List<ClassPath> classPaths = new ArrayList<>();
+    private final List<ClassPath> classPaths = new ArrayList<>();
     private Set<CtClass> outJar = null;
 
     public MTSClassPool(MTSClassLoader classLoader)

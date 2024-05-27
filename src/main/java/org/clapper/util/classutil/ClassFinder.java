@@ -108,13 +108,13 @@ public class ClassFinder
     /**
      * Places to search.
      */
-    private LinkedHashMap<String,File> placesToSearch =
+    private final LinkedHashMap<String,File> placesToSearch =
         new LinkedHashMap<String,File>();
 
     /**
      * Found classes. Cleared after every call to findClasses()
      */
-    private Map<String,ClassInfo> foundClasses =
+    private final Map<String,ClassInfo> foundClasses =
         new LinkedHashMap<String,ClassInfo>();
 
     /**

@@ -12,7 +12,7 @@ public abstract class PatchInfo
 {
     private static int modNum = 0;
 
-    private int modOrder;
+    private final int modOrder;
     SpirePatch patch;
     CtBehavior ctMethodToPatch;
     CtMethod patchMethod;

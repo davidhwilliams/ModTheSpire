@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.io.FilenameFilter;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A <tt>RecursiveFileFinder</tt> walks a directory tree and finds all
@@ -65,8 +66,7 @@ public class RecursiveFileFinder
 
         if (files != null)
         {
-            for (int i = 0; i < files.length; i++)
-                collection.add (files[i]);
+            Collections.addAll(collection, files);
 
             total = files.length;
         }
@@ -101,8 +101,7 @@ public class RecursiveFileFinder
 
         if (files != null)
         {
-            for (int i = 0; i < files.length; i++)
-                collection.add (files[i]);
+            Collections.addAll(collection, files);
 
             total = files.length;
         }

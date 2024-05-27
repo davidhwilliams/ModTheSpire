@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings("serial")
 public class JModPanelCheckBoxList extends JList<ModPanel> {
     protected static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
-    private ModSelectWindow parent;
+    private final ModSelectWindow parent;
 
     public JModPanelCheckBoxList(ModSelectWindow parent) {
         this.parent = parent;

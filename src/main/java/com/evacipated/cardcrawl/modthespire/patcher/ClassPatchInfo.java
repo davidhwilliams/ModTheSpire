@@ -18,8 +18,8 @@ import java.util.regex.Pattern;
 
 public class ClassPatchInfo extends PatchInfo
 {
-    private CtClass ctPatchClass;
-    private CtClass ctClassToPatch;
+    private final CtClass ctPatchClass;
+    private final CtClass ctClassToPatch;
 
     public ClassPatchInfo(CtClass ctClassToPatch, CtClass ctPatchClass)
     {
@@ -218,10 +218,10 @@ public class ClassPatchInfo extends PatchInfo
 
     private static class FindSpireFieldInitializers extends ExprEditor
     {
-        private ClassPool pool;
-        private CtClass ctSpireField;
-        private CtClass ctStaticSpireField;
-        private CtClass ctAccessor;
+        private final ClassPool pool;
+        private final CtClass ctSpireField;
+        private final CtClass ctStaticSpireField;
+        private final CtClass ctAccessor;
 
         boolean madeGet = false;
         boolean madeSet = false;

@@ -53,7 +53,7 @@ public class MultipleRegexFilenameFilter implements FilenameFilter
 
     private Collection<Pattern>  acceptPatterns = null;
     private Collection<Pattern>  rejectPatterns = null;
-    private int                  regexOptions;
+    private final int                  regexOptions;
     private MatchType            matchType = MatchType.FILENAME;
 
     /*----------------------------------------------------------------------*\

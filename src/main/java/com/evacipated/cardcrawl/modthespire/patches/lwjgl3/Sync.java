@@ -52,8 +52,8 @@ class Sync {
     private boolean initialised = false;
 
     /** for calculating the averages the previous sleep/yield times are stored */
-    private RunningAvg sleepDurations = new RunningAvg(10);
-    private RunningAvg yieldDurations = new RunningAvg(10);
+    private final RunningAvg sleepDurations = new RunningAvg(10);
+    private final RunningAvg yieldDurations = new RunningAvg(10);
 
     public Sync() {
 

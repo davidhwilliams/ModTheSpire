@@ -23,7 +23,7 @@ public final class Version extends VersionBase
                              Private Data Items
     \*----------------------------------------------------------------------*/
     
-    private static Version instance = new Version();
+    private static final Version instance = new Version();
 
     /*----------------------------------------------------------------------*\
                                 Constructor

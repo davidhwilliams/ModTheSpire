@@ -34,7 +34,7 @@ public final class AndFilenameFilter implements FilenameFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private List<FilenameFilter> filters = new LinkedList<FilenameFilter>();
+    private final List<FilenameFilter> filters = new LinkedList<FilenameFilter>();
 
     /*----------------------------------------------------------------------*\
                             Constructor

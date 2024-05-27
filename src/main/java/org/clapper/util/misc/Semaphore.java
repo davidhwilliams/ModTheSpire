@@ -103,7 +103,7 @@ public interface Semaphore
      *
      * @see #acquire()
      */
-    public boolean acquire (long timeout)
+    boolean acquire(long timeout)
         throws SemaphoreException;
 
     /**
@@ -119,7 +119,7 @@ public interface Semaphore
      *
      * @see #acquire(long)
      */
-    public boolean acquire()
+    boolean acquire()
         throws SemaphoreException;
 
     /**
@@ -133,7 +133,7 @@ public interface Semaphore
      *
      * @throws SemaphoreException error updating semaphore's count
      */
-    public void addToCount (int delta)
+    void addToCount(int delta)
         throws SemaphoreException;
 
     /**
@@ -143,7 +143,7 @@ public interface Semaphore
      *
      * @throws SemaphoreException error getting semaphore's value
      */
-    public int getValue()
+    int getValue()
         throws SemaphoreException;
 
     /**
@@ -151,6 +151,6 @@ public interface Semaphore
      *
      * @throws SemaphoreException error getting semaphore's value
      */
-    public void release()
+    void release()
         throws SemaphoreException;
 }

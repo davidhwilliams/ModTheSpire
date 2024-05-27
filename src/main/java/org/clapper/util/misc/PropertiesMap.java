@@ -47,7 +47,7 @@ public class PropertiesMap
 
         public boolean equals (Object o)
         {
-            return PropertiesMapEntry.class.isInstance (o);
+            return o instanceof PropertiesMapEntry;
         }
 
         public int hashCode()
@@ -77,7 +77,7 @@ public class PropertiesMap
      */
     private class EntrySet extends AbstractSet<Map.Entry<String, String>>
     {
-        private Set<PropertiesMapEntry> entrySetResult;
+        private final Set<PropertiesMapEntry> entrySetResult;
 
         EntrySet()
         {
@@ -94,7 +94,7 @@ public class PropertiesMap
         {
             return new Iterator<Map.Entry<String, String>>()
             {
-                Iterator<PropertiesMapEntry> it = entrySetResult.iterator();
+                final Iterator<PropertiesMapEntry> it = entrySetResult.iterator();
 
                 public Map.Entry<String, String> next()
                 {
@@ -186,7 +186,7 @@ public class PropertiesMap
      */
     private class KeySetIterator implements Iterator<String>
     {
-        private Enumeration<?> propertyNames;
+        private final Enumeration<?> propertyNames;
 
         KeySetIterator()
         {

@@ -32,7 +32,7 @@ public class RegexFilenameFilter
     \*----------------------------------------------------------------------*/
 
     private FileFilterMatchType matchType = FileFilterMatchType.PATH;
-    private Pattern pattern;
+    private final Pattern pattern;
 
     /*----------------------------------------------------------------------*\
                             Constructor

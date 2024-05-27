@@ -21,7 +21,7 @@ public class ArrayIterator<T> implements Iterator<T>
     /**
      * The underlying Array.
      */
-    private T array[] = null;
+    private T[] array = null;
 
     /**
      * The next array index.
@@ -38,7 +38,7 @@ public class ArrayIterator<T> implements Iterator<T>
      *
      * @param array  The array over which to iterate
      */
-    public ArrayIterator (T array[])
+    public ArrayIterator (T[] array)
     {
         this.array = array;
     }
@@ -51,7 +51,7 @@ public class ArrayIterator<T> implements Iterator<T>
      * @param array  The array over which to iterate
      * @param index  The index at which to start
      */
-    public ArrayIterator (T array[], int index)
+    public ArrayIterator (T[] array, int index)
     {
         this.array = array;
         this.nextIndex  = index;

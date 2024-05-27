@@ -25,8 +25,8 @@ import java.util.*;
 
 public class Patcher {
     public static Map<URL, AnnotationDB> annotationDBMap = new HashMap<>();
-    private static Map<Class<?>, EnumBusterReflect> enumBusterMap = new HashMap<>();
-    private static TreeSet<PatchInfo> patchInfos = new TreeSet<>(new PatchInfoComparator());
+    private static final Map<Class<?>, EnumBusterReflect> enumBusterMap = new HashMap<>();
+    private static final TreeSet<PatchInfo> patchInfos = new TreeSet<>(new PatchInfoComparator());
 
     public static void initializeMods(ClassLoader loader, ModInfo... modInfos) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException
     {
@@ -241,7 +241,7 @@ public class Patcher {
                             hasPrintedWarning = true;
                             System.out.println();
                         }
-                        System.out.println(String.format("Warning: @SpireEnum %s %s is already defined.", field.getType().getName(), enumName));
+                        System.out.printf("Warning: @SpireEnum %s %s is already defined.%n", field.getType().getName(), enumName);
                     }
                 }
             }
@@ -305,7 +305,7 @@ public class Patcher {
 
     public static void finalizePatches(ClassLoader loader) throws Exception
     {
-        System.out.printf("Injecting patches...");
+        System.out.print("Injecting patches...");
         if (Loader.DEBUG) {
             System.out.println();
             System.out.println();
@@ -333,7 +333,7 @@ public class Patcher {
 
     public static ClassPath compilePatches(MTSClassLoader loader, MTSClassPool pool) throws CannotCompileException
     {
-        System.out.printf("Compiling patched classes...");
+        System.out.print("Compiling patched classes...");
         if (Loader.DEBUG) {
             System.out.println();
         }
@@ -578,10 +578,8 @@ public class Patcher {
             return true;
         }
         if (insertPatch != null) {
-            if (insertPatch.loc() != -1 || insertPatch.rloc() != -1
-                || insertPatch.locs().length != 0 || insertPatch.rlocs().length != 0) {
-                return true;
-            }
+            return insertPatch.loc() != -1 || insertPatch.rloc() != -1
+                || insertPatch.locs().length != 0 || insertPatch.rlocs().length != 0;
         }
         return false;
     }

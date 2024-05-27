@@ -30,12 +30,12 @@ public class InsertPatchInfo extends ParameterPatchInfo
 
     }
 
-    public static enum InsertPatchType {
+    public enum InsertPatchType {
         ABSOLUTE, RELATIVE
     }
 
-    private SpireInsertPatch info;
-    private List<LineNumberAndPatchType> locs;
+    private final SpireInsertPatch info;
+    private final List<LineNumberAndPatchType> locs;
 
     public InsertPatchInfo(SpireInsertPatch info, List<LineNumberAndPatchType> locs, CtBehavior ctMethodToPatch, CtMethod patchMethod)
     {
@@ -49,7 +49,7 @@ public class InsertPatchInfo extends ParameterPatchInfo
     @Override
     protected String debugMsg()
     {
-        StringBuilder msgBuilder = new StringBuilder("");
+        StringBuilder msgBuilder = new StringBuilder();
         for (LineNumberAndPatchType patchLoc : locs) {
             switch(patchLoc.patchType) {
             case ABSOLUTE:

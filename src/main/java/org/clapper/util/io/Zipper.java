@@ -140,7 +140,7 @@ public class Zipper
      * Table of contents. The set contains the names already written to the
      * zip file.
      */
-    private Set<String> tableOfContents = new HashSet<String>();
+    private final Set<String> tableOfContents = new HashSet<String>();
 
     /*----------------------------------------------------------------------*\
                                 Constructor
@@ -513,7 +513,7 @@ public class Zipper
         ZipEntry zipEntry = getZipEntry (name);
         zipStream.putNextEntry (zipEntry);
 
-        byte buf[] = new byte[OUTPUT_BUF_SIZE];
+        byte[] buf = new byte[OUTPUT_BUF_SIZE];
         int total;
 
         while ( (total = istream.read (buf, 0, buf.length)) > 0 )
@@ -584,7 +584,7 @@ public class Zipper
         else
         {
             int   i;
-            File  fsRoots[];
+            File[] fsRoots;
 
             // Nuke any leading file system roots. This will nail the
             // leading "/" on Unix, and any drive letters on Windows.

@@ -7,8 +7,8 @@ import java.lang.reflect.Constructor;
 
 public class LocatorInfo {
 
-    private CtBehavior ctMethodToPatch;
-    private Class<?> finderClass;
+    private final CtBehavior ctMethodToPatch;
+    private final Class<?> finderClass;
 
     public LocatorInfo(CtBehavior ctMethodToPatch, Class<?> finderClass) {
         this.ctMethodToPatch = ctMethodToPatch;

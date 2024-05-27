@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class MyCodeConverter extends CodeConverter
 {
-    private static Set<String> done = new HashSet<>();
+    private static final Set<String> done = new HashSet<>();
 
     public static void reset()
     {

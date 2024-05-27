@@ -107,7 +107,7 @@ public class JustifyTextWriter extends PrintWriter
     /**
      * Current line being assembled. println() consumes this buffer.
      */
-    private StringBuffer buffer = new StringBuffer();
+    private final StringBuffer buffer = new StringBuffer();
 
     /**
      * Justification type
@@ -352,7 +352,7 @@ public class JustifyTextWriter extends PrintWriter
      */
     public void print (boolean b)
     {
-        Boolean B = new Boolean (b);
+        Boolean B = Boolean.valueOf(b);
 
         write (B.toString());
     }
@@ -372,7 +372,7 @@ public class JustifyTextWriter extends PrintWriter
      *
      * @param s  The array of characters to print
      */
-    public void print (char s[])
+    public void print (char[] s)
     {
         write (s, 0, s.length);
     }
@@ -473,7 +473,7 @@ public class JustifyTextWriter extends PrintWriter
      */
     public void println (boolean b)
     {
-        Boolean B = new Boolean (b);
+        Boolean B = Boolean.valueOf(b);
 
         println (B.toString());
     }
@@ -493,7 +493,7 @@ public class JustifyTextWriter extends PrintWriter
      *
      * @param s  The array of characters to print
      */
-    public void println (char s[])
+    public void println (char[] s)
     {
         for (int i = 0; i < s.length; i++)
             print (s[i]);
@@ -604,7 +604,7 @@ public class JustifyTextWriter extends PrintWriter
      * @param off  Offset from which to start writing characters
      * @param len  Number of characters to write
      */
-    public void write (char cbuf[], int off, int len)
+    public void write (char[] cbuf, int off, int len)
     {
         for (; (off < cbuf.length) && (len > 0); len--, off++)
             write (cbuf[off]);

@@ -165,7 +165,7 @@ public class XStringBuffer extends XStringBufBase
      */
     public void getChars (int   srcBegin,
                           int   srcEnd,
-                          char  dst[],
+                          char[] dst,
                           int   dstBegin)
         throws IndexOutOfBoundsException
     {
@@ -310,7 +310,7 @@ public class XStringBuffer extends XStringBufBase
      * @param len    The number of characters to insert
      */
     protected synchronized void insertCharacters (int  index,
-                                                  char chars[],
+                                                  char[] chars,
                                                   int  offset,
                                                   int  len)
     {

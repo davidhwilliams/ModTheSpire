@@ -38,8 +38,8 @@ public class ClassInfo extends ClassVisitor
     private String          superClassName = null;
     private String[]        implementedInterfaces = null;
     private File            locationFound = null;
-    private Set<FieldInfo>  fields = new HashSet<FieldInfo>();
-    private Set<MethodInfo> methods = new HashSet<MethodInfo>();
+    private final Set<FieldInfo>  fields = new HashSet<FieldInfo>();
+    private final Set<MethodInfo> methods = new HashSet<MethodInfo>();
 
     /*----------------------------------------------------------------------*\
                                 Constructor

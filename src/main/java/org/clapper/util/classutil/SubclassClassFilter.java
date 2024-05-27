@@ -18,7 +18,7 @@ public class SubclassClassFilter implements ClassFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private Class baseClass;
+    private final Class baseClass;
 
     /*----------------------------------------------------------------------*\
                             Constructor
@@ -58,6 +58,6 @@ public class SubclassClassFilter implements ClassFilter
         else
             classFinder.findAllSuperClasses (classInfo, superClasses);
 
-        return superClasses.keySet().contains (baseClass.getName());
+        return superClasses.containsKey(baseClass.getName());
     }
 }

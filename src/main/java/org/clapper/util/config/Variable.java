@@ -22,14 +22,14 @@ class Variable
                                Instance Data
     \*----------------------------------------------------------------------*/
 
-    private String         name;
+    private final String         name;
     private String         cookedValue;
     private String[]       cookedTokens = null;
     private String         rawValue;
     private int            lineWhereDefined = 0; // 0 means unknown
     private ValueSegment[] rawSegments    = null;
     private ValueSegment[] cookedSegments = null;
-    private Section        parentSection;
+    private final Section        parentSection;
 
     /*----------------------------------------------------------------------*\
                                Constructors

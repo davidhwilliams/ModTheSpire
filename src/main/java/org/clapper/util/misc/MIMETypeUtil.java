@@ -132,7 +132,7 @@ public class MIMETypeUtil
     {
         loadMappings();
 
-        String ext = (String) mimeTypeToExtensionMap.get (mimeType);
+        String ext = mimeTypeToExtensionMap.get (mimeType);
 
         if (ext == null)
             ext = "dat";
@@ -276,7 +276,7 @@ public class MIMETypeUtil
         loadMappings();
 
         String extension = FileUtil.getFileNameExtension (fileName);
-        mimeType = (String) extensionToMIMETypeMap.get (extension);
+        mimeType = extensionToMIMETypeMap.get (extension);
 
         if (mimeType == null)
         {
@@ -533,7 +533,7 @@ public class MIMETypeUtil
 
                     if (mimeTypeToExtensionMap.get (mimeType) == null)
                     {
-                        extension = (String) extensions.get (0);
+                        extension = extensions.get (0);
                         log.debug ("File \"" + path + "\": " + mimeType +
                                    " -> \"" + extension + "\"");
 

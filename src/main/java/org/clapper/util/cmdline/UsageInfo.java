@@ -41,15 +41,15 @@ public final class UsageInfo
                            Private Data Elements
     \*----------------------------------------------------------------------*/
 
-    private Map<Character, OptionInfo> shortOptionMap =
+    private final Map<Character, OptionInfo> shortOptionMap =
                                         new HashMap<Character, OptionInfo>();
-    private Map<String, OptionInfo> longOptionMap =
+    private final Map<String, OptionInfo> longOptionMap =
                                         new HashMap<String, OptionInfo>();
-    private Set<OptionInfo> allOptions =
+    private final Set<OptionInfo> allOptions =
                             new TreeSet<OptionInfo> (new OptionComparator());
-    private Map<String, String> paramMap = new HashMap<String, String>();
-    private Set<String> requiredParams = new HashSet<String>();
-    private List<String> paramNames = new ArrayList<String>();
+    private final Map<String, String> paramMap = new HashMap<String, String>();
+    private final Set<String> requiredParams = new HashSet<String>();
+    private final List<String> paramNames = new ArrayList<String>();
     private String  usagePrologue = null;
     private String  usageTrailer = null;
     private String  commandName = null;

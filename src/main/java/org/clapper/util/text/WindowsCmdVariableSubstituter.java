@@ -115,9 +115,8 @@ public class WindowsCmdVariableSubstituter
                              final VariableDereferencer deref,
                              final VariableNameChecker  nameChecker,
                              final Object               context)
-        throws VariableSyntaxException,
-               UndefinedVariableException,
-               VariableSubstitutionException
+        throws
+        VariableSubstitutionException
     {
         if (s != null)
             s = doSubstitution(s, context, nameChecker, deref);
@@ -165,7 +164,7 @@ public class WindowsCmdVariableSubstituter
         StringBuffer  var         = new StringBuffer();
         boolean       inVar       = false;
         boolean       syntaxError = false;
-        char          ch[];
+        char[] ch;
 
         if (nameChecker == null)
             nameChecker = this;
@@ -205,7 +204,7 @@ public class WindowsCmdVariableSubstituter
                                                                   context);
                             if (((value == null) || (value.length() == 0))
                                                  &&
-                                (getAbortOnUndefinedVariable() == true))
+                                (getAbortOnUndefinedVariable()))
                             {
                                 throw new UndefinedVariableException
                                     ("Variable \"" + varName +
@@ -257,15 +256,15 @@ public class WindowsCmdVariableSubstituter
             // without modification.
 
             result.append('%');
-            result.append(var.toString());
+            result.append(var);
             syntaxError = true;
         }
 
-        if (syntaxError && (getAbortOnSyntaxError() == true))
+        if (syntaxError && (getAbortOnSyntaxError()))
         {
             throw new VariableSyntaxException
                 ("Syntactically incorrect reference to variable \"" +
-                 var.toString() + "\"");
+                    var + "\"");
         }
 
         return result.toString();

@@ -41,7 +41,7 @@ public class ModSelectWindow extends JFrame
     static final Icon ICON_ERROR    = new ImageIcon(ModSelectWindow.class.getResource("/assets/error.gif"));
     static final Icon ICON_WORKSHOP = new ImageIcon(ModSelectWindow.class.getResource("/assets/workshop.gif"));
 
-    private ModInfo[] info;
+    private final ModInfo[] info;
     private boolean showingLog = false;
     private boolean isMaximized = false;
     private boolean isCentered = false;
@@ -760,7 +760,6 @@ public class ModSelectWindow extends JFrame
                 if (updateChecker.isNewerVersionAvailable(Loader.MTS_VERSION)) {
                     URL latestReleaseURL = updateChecker.getLatestReleaseURL();
                     setMTSUpdateAvailable(latestReleaseURL);
-                    return;
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("ERROR: ModTheSpire: " + e.getMessage());

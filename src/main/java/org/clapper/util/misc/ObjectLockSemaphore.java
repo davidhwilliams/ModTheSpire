@@ -271,15 +271,14 @@ public class ObjectLockSemaphore implements Semaphore
      */
     public String toString()
     {
-        StringBuilder buf = new StringBuilder();
 
-        buf.append ("Semaphore[");
-        buf.append (Integer.toHexString (hashCode()));
-        buf.append (", value=");
-        buf.append (String.valueOf (count));
-        buf.append (']');
+        String buf = "Semaphore[" +
+            Integer.toHexString(hashCode()) +
+            ", value=" +
+            count +
+            ']';
 
-        return buf.toString();
+        return buf;
     }
 
     /*----------------------------------------------------------------------*\

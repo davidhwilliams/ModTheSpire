@@ -194,7 +194,7 @@ public class RollingFileWriter extends PrintWriter
          *
          * @return the message, or null if there isn't one.
          */
-        public String getRollOverMessage();
+        String getRollOverMessage();
     }
 
     /**
@@ -224,7 +224,7 @@ public class RollingFileWriter extends PrintWriter
     private static class BackupIndexDereferencer
         implements VariableDereferencer
     {
-        private Integer        index;
+        private final Integer        index;
         private DecimalFormat  indexFormat;
         private boolean        legal = false;
 
@@ -332,12 +332,12 @@ public class RollingFileWriter extends PrintWriter
     /**
      * Line separator sequence, for issuing newlines.
      */
-    private static String newline = System.getProperty ("line.separator");
+    private static final String newline = System.getProperty ("line.separator");
 
     /**
      * For logging
      */
-    private static Logger log = new Logger (RollingFileWriter.class);
+    private static final Logger log = new Logger (RollingFileWriter.class);
 
     /*----------------------------------------------------------------------*\
                                 Constructor
@@ -623,7 +623,7 @@ public class RollingFileWriter extends PrintWriter
      *
      * @param s  The array of characters to print
      */
-    public synchronized void println (char s[])
+    public synchronized void println (char[] s)
     {
         print (s);
         println();

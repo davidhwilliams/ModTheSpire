@@ -23,15 +23,15 @@ import java.util.*;
 
 public class ModList
 {
-    private static String OLD_CFG_FILE = ConfigUtils.CONFIG_DIR + File.separator + "mod_order.xml";
-    private static String CFG_FILE = ConfigUtils.CONFIG_DIR + File.separator + "mod_lists.json";
+    private static final String OLD_CFG_FILE = ConfigUtils.CONFIG_DIR + File.separator + "mod_order.xml";
+    private static final String CFG_FILE = ConfigUtils.CONFIG_DIR + File.separator + "mod_lists.json";
 
     public static String DEFAULT_LIST = "<Default>";
 
     private static ModListSaveData saveData = null;
 
-    private String name;
-    private List<String> mods;
+    private final String name;
+    private final List<String> mods;
 
     private static class ModListSaveData
     {
@@ -177,6 +177,7 @@ public class ModList
                 ModDescriptor descriptor = loadOrder.get(j);
                 if (descriptor.mod == modFiles[i] && descriptor.info == info[i]) {
                     found = true;
+                    break;
                 }
             }
             if (!found) {

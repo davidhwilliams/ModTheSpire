@@ -34,45 +34,41 @@ class OutJar
         {
             File jarFile = new File(jarPathAndName);
 
+            JarOutputStream tempJar = new JarOutputStream(new FileOutputStream(jarFile));
+
             try {
-                JarOutputStream tempJar = new JarOutputStream(new FileOutputStream(jarFile));
+                // Open the given file.
 
                 try {
-                    // Open the given file.
+                    // Create a jar entry and add it to the temp jar.
 
-                    try {
-                        // Create a jar entry and add it to the temp jar.
-
-                        for (FilePathAndBytes file : files) {
-                            String fileName = file.path;
-                            byte[] fileByteCode = file.b;
-                            JarEntry entry = new JarEntry(fileName);
-                            tempJar.putNextEntry(entry);
-                            tempJar.write(fileByteCode);
-                        }
-
-                    } catch (Exception ex) {
-                        System.out.println(ex);
-
-                        // Add a stub entry here, so that the jar will close
-                        // without an
-                        // exception.
-
-                        tempJar.putNextEntry(new JarEntry("stub"));
+                    for (FilePathAndBytes file : files) {
+                        String fileName = file.path;
+                        byte[] fileByteCode = file.b;
+                        JarEntry entry = new JarEntry(fileName);
+                        tempJar.putNextEntry(entry);
+                        tempJar.write(fileByteCode);
                     }
 
                 } catch (Exception ex) {
                     System.out.println(ex);
 
-                    // IMportant so the jar will close without an
+                    // Add a stub entry here, so that the jar will close
+                    // without an
                     // exception.
 
                     tempJar.putNextEntry(new JarEntry("stub"));
-                } finally {
-                    tempJar.close();
                 }
+
+            } catch (Exception ex) {
+                System.out.println(ex);
+
+                // IMportant so the jar will close without an
+                // exception.
+
+                tempJar.putNextEntry(new JarEntry("stub"));
             } finally {
-                // do I need to do things here
+                tempJar.close();
             }
         }
     }

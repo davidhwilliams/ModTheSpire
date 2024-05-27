@@ -38,7 +38,7 @@ public class SteamSearch
 
         Path local = Paths.get(jreBase, "bin", javaExecName);
         if (local.toFile().exists()) {
-            System.out.println("Using local StS JRE @ " + local.toAbsolutePath().toString());
+            System.out.println("Using local StS JRE @ " + local.toAbsolutePath());
             return local.toString();
         }
 
@@ -50,7 +50,7 @@ public class SteamSearch
 
         Path install = Paths.get(installDir, jreBase, "bin", javaExecName);
         if (install.toFile().exists()) {
-            System.out.println("Using install StS JRE @ " + install.toAbsolutePath().toString());
+            System.out.println("Using install StS JRE @ " + install.toAbsolutePath());
             return install.toString();
         }
         return null;
@@ -212,7 +212,7 @@ public class SteamSearch
         private final String id;
         private final String installPath;
         private final int timeUpdated;
-        private List<String> tags;
+        private final List<String> tags;
 
         public WorkshopInfo(String title, String id, String installPath, String timeUpdated, String tagsString)
         {

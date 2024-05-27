@@ -37,5 +37,5 @@ public enum LogLevel
     /**
      * Log message at "warning" level
      */
-    WARNING;
+    WARNING
 }

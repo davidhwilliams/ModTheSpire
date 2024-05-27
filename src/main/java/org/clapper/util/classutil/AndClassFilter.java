@@ -31,7 +31,7 @@ public final class AndClassFilter implements ClassFilter
                             Private Data Items
     \*----------------------------------------------------------------------*/
 
-    private List<ClassFilter> filters = new LinkedList<ClassFilter>();
+    private final List<ClassFilter> filters = new LinkedList<ClassFilter>();
 
     /*----------------------------------------------------------------------*\
                             Constructor

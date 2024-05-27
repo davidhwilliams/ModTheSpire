@@ -21,17 +21,17 @@ class Section
     /**
      * Name of section
      */
-    private String name;
+    private final String name;
 
     /**
      * Names of variables, in order encountered. Contains strings.
      */
-    private List<String> variableNames = new ArrayList<String>();
+    private final List<String> variableNames = new ArrayList<String>();
 
     /**
      * List of Variable objects, indexed by variable name
      */
-    private Map<String, Variable> valueMap = new HashMap<String, Variable>();
+    private final Map<String, Variable> valueMap = new HashMap<String, Variable>();
 
     /**
      * The section's unique ID. This ID increases monotonically from 1.

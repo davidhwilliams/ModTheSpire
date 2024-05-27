@@ -2,15 +2,7 @@ package org.clapper.util.config;
 
 import java.io.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -420,7 +412,7 @@ public class Configuration
     /**
      * Line types
      */
-    private static enum LineType
+    private enum LineType
     {
         COMMENT,
         INCLUDE,
@@ -510,13 +502,13 @@ public class Configuration
      * List of sections, in order encountered. Each element is a reference to
      * a Section object.
      */
-    private List<Section> sectionsInOrder = new ArrayList<Section>();
+    private final List<Section> sectionsInOrder = new ArrayList<Section>();
 
     /**
      * Sections by name. Each index is a string. Each value is a reference to
      * a Section object.
      */
-    private Map<String, Section> sectionsByName =
+    private final Map<String, Section> sectionsByName =
                                              new HashMap<String, Section>();
 
     /**
@@ -552,7 +544,7 @@ public class Configuration
     /**
      * The substituter
      */
-    private UnixShellVariableSubstituter varSubstituter =
+    private final UnixShellVariableSubstituter varSubstituter =
         new UnixShellVariableSubstituter();
 
     /*----------------------------------------------------------------------*\
@@ -926,8 +918,7 @@ public class Configuration
                     // Break it into white space-delimited tokens.
 
                     String[] tokens = TextUtil.split(cookedToken);
-                    for (String token : tokens)
-                        result.add(token);
+                    Collections.addAll(result, tokens);
                 }
             }
         }
@@ -1689,7 +1680,7 @@ public class Configuration
         out.println (this.getClass().getName());
         out.print (COMMENT_CHARS.charAt (0));
         out.print (" on ");
-        out.println (new Date().toString());
+        out.println (new Date());
         out.println();
 
         for (Section section : sectionsInOrder)
@@ -1707,7 +1698,7 @@ public class Configuration
                 value.append (var.getRawValue());
                 //value.encodeMetacharacters();
 
-                out.println (varName + ": " + value.toString());
+                out.println (varName + ": " + value);
             }
         }
     }
@@ -1863,7 +1854,7 @@ public class Configuration
             {
                 throw new ConfigurationException
                                      (getExceptionPrefix (line, url) +
-                                      ex.toString());
+                                         ex);
             }
         }
 

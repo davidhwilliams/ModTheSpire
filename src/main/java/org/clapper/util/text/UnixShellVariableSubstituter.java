@@ -75,7 +75,7 @@ public class UnixShellVariableSubstituter
     private static final char VAR_CLOSE_BRACE  = '}';
     private static final char VAR_IF_EXISTS_OP = '?';
 
-    private enum ParseState {NOT_IN_VAR, IN_VAR, IN_DEFAULT_VALUE};
+    private enum ParseState {NOT_IN_VAR, IN_VAR, IN_DEFAULT_VALUE}
 
     /*----------------------------------------------------------------------*\
                              Public Constants
@@ -274,7 +274,7 @@ public class UnixShellVariableSubstituter
         boolean       nextIsLiteral = false;
         boolean       syntaxError   = false;
         int           i;
-        char          ch[];
+        char[] ch;
 
         if (nameChecker == null)
             nameChecker = this;
@@ -361,7 +361,7 @@ public class UnixShellVariableSubstituter
                     {
                         result.append(VAR_START);
                         result.append(VAR_OPEN_BRACE);
-                        result.append(var.toString());
+                        result.append(var);
                         i--;             // push 'c' back on the stack
                         syntaxError = true;
                     }
@@ -401,7 +401,7 @@ public class UnixShellVariableSubstituter
             {
                 result.append(VAR_START);
                 result.append(VAR_OPEN_BRACE);
-                result.append(var.toString());
+                result.append(var);
                 syntaxError = true;
             }
 
@@ -419,11 +419,11 @@ public class UnixShellVariableSubstituter
             }
         }
 
-        if (syntaxError && (getAbortOnSyntaxError() == true))
+        if (syntaxError && (getAbortOnSyntaxError()))
         {
             throw new VariableSyntaxException
                 ("Syntax error in reference to variable \"" +
-                 var.toString() + "\"");
+                    var + "\"");
         }
 
         return result.toString();
@@ -470,7 +470,7 @@ public class UnixShellVariableSubstituter
         if ((result == null) || (result.length() == 0))
         {
             if ((defaultValue.length() == 0) &&
-                (getAbortOnUndefinedVariable() == true))
+                (getAbortOnUndefinedVariable()))
             {
                 throw new UndefinedVariableException
                     ("Variable \"" + varName + "\" is undefined.");

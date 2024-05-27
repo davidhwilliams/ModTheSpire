@@ -328,7 +328,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
      */
     private static class ValuesFile
     {
-        private RandomAccessFile file;
+        private final RandomAccessFile file;
 
         ValuesFile (File f)
             throws IOException
@@ -400,7 +400,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
         {
             int cmp;
 
-            if ((cmp = (int) (o1.getObjectSize() - o2.getObjectSize())) == 0)
+            if ((cmp = o1.getObjectSize() - o2.getObjectSize()) == 0)
                 cmp = (int) (o1.getFilePosition() - o2.getFilePosition());
 
             return cmp;
@@ -648,7 +648,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
      */
     private class EntrySetEntry implements Map.Entry<K,V>
     {
-        private FileHashMapEntry<K> entry;
+        private final FileHashMapEntry<K> entry;
 
         EntrySetEntry (FileHashMapEntry<K> entry)
         {
@@ -724,11 +724,11 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
         {
             return new Iterator<Map.Entry<K,V>>()
             {
-                EntryIterator it = new EntryIterator();
+                final EntryIterator it = new EntryIterator();
 
                 public Map.Entry<K,V> next()
                 {
-                    return (Map.Entry<K,V>) new EntrySetEntry (it.next());
+                    return new EntrySetEntry (it.next());
                 }
 
                 public boolean hasNext()
@@ -798,7 +798,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
      */
     private class KeyIterator implements Iterator<K>
     {
-        private EntryIterator it;
+        private final EntryIterator it;
 
         KeyIterator()
         {
@@ -1398,7 +1398,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
         if (entrySetResult == null)
             entrySetResult = new EntrySet();
 
-        return (Set<Map.Entry<K,V>>) entrySetResult;
+        return entrySetResult;
     }
 
     /**
@@ -1772,7 +1772,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
                 log.debug ("First entry is at pos " + pos + ", size=" + size);
                 size = (int) pos;
                 log.debug ("Gap at position 0 of size " + size);
-                fileGaps.add (new FileHashMapEntry<K> ((long) 0, size));
+                fileGaps.add (new FileHashMapEntry<K> (0, size));
             }
 
             previous = entry;
@@ -1890,7 +1890,7 @@ public class FileHashMap<K,V> extends AbstractMap<K,V>
                IllegalStateException
     {
         int                size      = entry.getObjectSize();
-        byte               byteBuf[] = new byte[size];
+        byte[] byteBuf = new byte[size];
         int                sizeRead;
         ObjectInputStream  objStream;
 

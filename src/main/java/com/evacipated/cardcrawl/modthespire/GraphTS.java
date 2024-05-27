@@ -17,8 +17,8 @@ public class GraphTS<T>
         }
     }
 
-    private List<Vertex> vertexList;
-    private List<List<Boolean>> matrix;
+    private final List<Vertex> vertexList;
+    private final List<List<Boolean>> matrix;
 
     public List<T> sortedArray;
 
@@ -141,9 +141,9 @@ public class GraphTS<T>
             List<T> children = new ArrayList<>();
         }
 
-        private Map<T, Node> Nodes = new HashMap<>();
+        private final Map<T, Node> Nodes = new HashMap<>();
 
-        private Set<T> visitedNodes = new HashSet<>();
+        private final Set<T> visitedNodes = new HashSet<>();
 
         Dependencies()
         {
@@ -168,9 +168,7 @@ public class GraphTS<T>
         {
             Node node = Nodes.get(x);
             if (node != null) {
-                if (node.children.contains(y)) {
-                    return true;
-                }
+                return node.children.contains(y);
             }
             return false;
         }
