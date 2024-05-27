@@ -3,7 +3,7 @@
 
     <groupId>com.evacipated.cardcrawl</groupId>
     <artifactId>ModTheSpire</artifactId>
-    <version>3.30.3</version>
+    <version>3.30.4</version>
     <packaging>jar</packaging>
 
     <name>ModTheSpire</name>
@@ -14,8 +14,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <kotlin.version>1.9.24</kotlin.version>
-        <gdx.version>1.9.13</gdx.version>
+        <kotlin.version>2.0.0</kotlin.version>
         <lwjgl.version>3.3.3</lwjgl.version>
     </properties>
 
@@ -33,7 +32,7 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.23.2-GA</version>
+            <version>3.30.2-GA</version>
         </dependency>
         <dependency>
             <groupId>org.scannotation</groupId>
@@ -183,7 +182,7 @@
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-lwjgl3</artifactId>
-            <version>${gdx.version}</version>
+            <version>1.12.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -194,7 +193,7 @@
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-controllers-lwjgl3</artifactId>
-            <version>${gdx.version}</version>
+            <version>1.9.13</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -217,7 +216,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.5.3</version>
                 <executions>
                     <execution>
                         <id>ModTheSpire-kotlin</id>
@@ -425,7 +424,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -443,5 +442,12 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
 
 </project>
